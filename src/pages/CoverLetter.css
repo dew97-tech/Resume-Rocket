@@ -1,0 +1,128 @@
+.cl-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: calc(100vh - var(--navbar-height));
+  margin-top: var(--navbar-height);
+}
+
+.cl-editor {
+  overflow-y: auto;
+  padding: 24px;
+  background: var(--md-sys-color-surface-container-low);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.cl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cl-templates {
+  margin-bottom: 20px;
+}
+
+.cl-template-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.cl-template-card {
+  text-align: left;
+  padding: 14px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--transition-normal);
+}
+
+.cl-template-card.selected {
+  border-color: var(--md-sys-color-primary);
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.cl-template-card:hover {
+  transform: translateY(-2px);
+}
+
+.cl-tc-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.cl-tc-desc {
+  font: var(--md-sys-typescale-body-small);
+  color: var(--md-sys-color-outline);
+  line-height: 1.4;
+}
+
+.cl-preview-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--md-sys-color-surface-container);
+  overflow: hidden;
+}
+
+.cl-preview-wrapper {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+  zoom: 0.6;
+}
+
+.cl-preview-content {
+  padding: 48px 40px;
+  min-height: 297mm;
+  box-sizing: border-box;
+}
+
+.cl-generated-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 11pt;
+  line-height: 1.7;
+  color: #1C1B1F;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+}
+
+.cl-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--md-sys-color-outline);
+  gap: 12px;
+}
+
+.cl-placeholder p {
+  font: var(--md-sys-typescale-body-medium);
+  color: var(--md-sys-color-outline);
+}
+
+@media (max-width: 1024px) {
+  .cl-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .cl-editor {
+    border-right: none;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  }
+  .cl-preview-panel {
+    min-height: 80vh;
+  }
+  .cl-template-cards {
+    grid-template-columns: 1fr;
+  }
+  .cl-preview-wrapper {
+    width: 100%;
+    min-height: auto;
+  }
+}
