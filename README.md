@@ -1,40 +1,28 @@
-# Vite + RSC
+# React CV Maker
 
-This example shows how to set up a React application with [Server Component](https://react.dev/reference/rsc/server-components) features on Vite using [`@vitejs/plugin-rsc`](https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-rsc).
+A powerful and fully client-side Resume and CV Builder built with React and Vite. Create, customize, and export professional A4 paginated resumes instantly without any backend requirements.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vitejs/vite-plugin-react/tree/main/packages/plugin-rsc/examples/starter)
+## 🚀 Key Features
 
-```sh
-# run dev server
+- **Dynamic Interactive Pagination:** Simulates physical A4 page limits live in the browser using intelligent React `useLayoutEffect` DOM measurements.
+- **Multiple Premium Templates:** Easily switch between Corporate, Clean, Executive, Elegant, and Classic professional designs.
+- **Native PDF Exporting:** Utilizes `html2pdf.js` with offscreen un-scaled capturing to generate pixel-perfect scalable PDF prints directly from the browser context without styling loss.
+- **Color & Font Theming:** Globally override fonts and active theme tint colors.
+
+## 🛠 Tech Stack
+
+- React 19 (via Vite)
+- CSS (Native design tokens and multi-column grid layouts)
+- `dnd-kit` (for section sorting options)
+- `html2pdf.js` (for PDF extraction and slicing)
+
+## 📦 Getting Started
+
+To run the builder locally, run these commands inside the directory:
+```bash
+# install dependencies
+npm install
+
+# launch the development server
 npm run dev
-
-# build for production and preview
-npm run build
-npm run preview
 ```
-
-## API usage
-
-See [`@vitejs/plugin-rsc`](https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-rsc) for the documentation.
-
-- [`vite.config.ts`](./vite.config.ts)
-  - `@vitejs/plugin-rsc/plugin`
-- [`./src/framework/entry.rsc.tsx`](./src/framework/entry.rsc.tsx)
-  - `@vitejs/plugin-rsc/rsc`
-  - `import.meta.viteRsc.loadModule`
-- [`./src/framework/entry.ssr.tsx`](./src/framework/entry.ssr.tsx)
-  - `@vitejs/plugin-rsc/ssr`
-  - `import.meta.viteRsc.loadBootstrapScriptContent`
-  - `rsc-html-stream/server`
-- [`./src/framework/entry.browser.tsx`](./src/framework/entry.browser.tsx)
-  - `@vitejs/plugin-rsc/browser`
-  - `rsc-html-stream/client`
-
-## Notes
-
-- [`./src/framework/entry.{browser,rsc,ssr}.tsx`](./src/framework) (with inline comments) provides an overview of how low level RSC (React flight) API can be used to build RSC framework.
-- You can use [`vite-plugin-inspect`](https://github.com/antfu-collective/vite-plugin-inspect) to understand how `"use client"` and `"use server"` directives are transformed internally.
-
-## Deployment
-
-See [vite-plugin-rsc-deploy-example](https://github.com/hi-ogawa/vite-plugin-rsc-deploy-example)
