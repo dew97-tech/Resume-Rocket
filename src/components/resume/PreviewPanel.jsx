@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useLayoutEffect } from 'react';
-import { FiDownload, FiEye, FiInfo, FiMinus, FiPlus, FiPrinter, FiRefreshCw, FiUpload } from 'react-icons/fi';
+import { FiDownload, FiEye, FiInfo, FiMinus, FiPlus, FiPrinter, FiRefreshCw, FiUpload, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useResume } from '../../contexts/ResumeContext';
 import { useToast } from '../../contexts/ToastContext';
 import { exportToPdf } from '../../utils/pdfExport';
@@ -258,44 +258,44 @@ export default function PreviewPanel() {
         <div className="toolbar-divider" />
 
         <div className="toolbar-group">
-          <button className="btn btn-ghost btn-sm" style={{ padding: '4px 8px' }} onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>
-            Prev
+          <button className="btn btn-ghost btn-sm" style={{ padding: '4px 8px', display: 'flex', alignItems: 'center', gap: '4px' }} onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} title="Navigate to previous page (Physical layout shifts upwards)">
+            <FiChevronLeft size={16} /> Prev
           </button>
-          <span className="metric-value">Page {currentPage} of {totalPages}</span>
-          <button className="btn btn-ghost btn-sm" style={{ padding: '4px 8px' }} onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>
-            Next
+          <span className="metric-value" title="Active Page Viewer (Calculated automatically from template density boundaries)">Page {currentPage} of {totalPages}</span>
+          <button className="btn btn-ghost btn-sm" style={{ padding: '4px 8px', display: 'flex', alignItems: 'center', gap: '4px' }} onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} title="Navigate to next page of over-flowing context">
+            Next <FiChevronRight size={16} />
           </button>
         </div>
 
         <div className="toolbar-divider" />
 
-        <button className="btn btn-ghost btn-sm" onClick={handleResetDesign} title="Reset design settings to defaults">
+        <button className="btn btn-ghost btn-sm" onClick={handleResetDesign} title="Wipe out current style manipulations and return to global default settings">
           <FiRefreshCw size={14} /> Reset
         </button>
       </div>
 
       <div className="preview-toolbar preview-toolbar-secondary">
-        <button className="btn btn-ghost btn-sm" onClick={handlePrint} title="Print resume">
+        <button className="btn btn-ghost btn-sm" onClick={handlePrint} title="Launch your system local Print dialog (Or save as standard text PDF)">
           <FiPrinter size={16} /> Print
         </button>
-        <button className="btn btn-ghost btn-sm" onClick={handleExportJSON} title="Export resume data as JSON">
+        <button className="btn btn-ghost btn-sm" onClick={handleExportJSON} title="Export your entire resume data strictly as a local JSON file (Recommended Backup mechanism)">
           <FiDownload size={16} /> Save JSON
         </button>
-        <button className="btn btn-ghost btn-sm" onClick={() => fileInputRef.current?.click()} title="Import resume data from JSON">
+        <button className="btn btn-ghost btn-sm" onClick={() => fileInputRef.current?.click()} title="Import and instantly restore a .json resume backup file into the builder">
           <FiUpload size={16} /> Load JSON
         </button>
         <input ref={fileInputRef} type="file" accept=".json" onChange={handleImportJSON} style={{ display: 'none' }} />
 
         <div className="toolbar-divider" />
 
-        <button className="btn btn-ghost btn-sm" onClick={handleDownloadSample} title="Download a sample JSON file with all fields filled">
+        <button className="btn btn-ghost btn-sm" onClick={handleDownloadSample} title="Download a pre-populated example layout file">
           <FiDownload size={16} /> Sample JSON
         </button>
-        <button className="btn btn-ghost btn-sm" onClick={handlePreviewSample} title="Load a sample resume to see how all fields look">
+        <button className="btn btn-ghost btn-sm" onClick={handlePreviewSample} title="Inject a comprehensively dense dummy profile (2 Pages) to test template behavior seamlessly">
           <FiEye size={16} /> Preview Sample
         </button>
 
-        <button className="btn btn-primary btn-sm export-btn" onClick={handleExport} disabled={exporting}>
+        <button className="btn btn-primary btn-sm export-btn" onClick={handleExport} disabled={exporting} title="Execute high-fidelity off-screen algorithm scaling out native PDF slice extraction completely free">
           <FiDownload size={16} />
           {exporting ? 'Exporting...' : 'Export PDF'}
         </button>

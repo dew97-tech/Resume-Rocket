@@ -36,6 +36,24 @@ export const sampleResume = {
       endDate: 'Feb 2018',
       current: false,
       description: 'Developed responsive web applications for 20+ enterprise clients. Migrated legacy jQuery codebase to React, reducing load time by 60%. Created a reusable component library that accelerated development across the team.'
+    },
+    {
+      id: '4',
+      company: 'Creative Solutions LLC',
+      position: 'UI/UX Designer & Developer',
+      startDate: 'Jan 2014',
+      endDate: 'May 2016',
+      current: false,
+      description: 'Bridged the gap between design and engineering by building interactive high-fidelity prototypes. Increased user retention by 25% through comprehensive A/B testing and accessibility audits on the primary marketing funnel.'
+    },
+    {
+      id: '5',
+      company: 'University IT Department',
+      position: 'Helpdesk Technician',
+      startDate: 'Sep 2012',
+      endDate: 'Dec 2013',
+      current: false,
+      description: 'Provided Tier 1 and Tier 2 technical support for over 5,000 university students and faculty members. Managed Active Directory domains and automated routine server maintenance scripts in Python.'
     }
   ],
   education: [
@@ -89,6 +107,20 @@ export const sampleResume = {
       description: 'Developed an intelligent project management tool that uses ML to predict task completion times and optimize team workload distribution. Served 5K+ teams in beta.',
       technologies: 'Next.js, Python, TensorFlow, PostgreSQL, Redis',
       link: 'https://github.com/johndoe/taskflow'
+    },
+    {
+      id: '3',
+      name: 'FinTrack — Personal Finance Dashboard',
+      description: 'Open-source personal finance aggregator that connects to over 10,000 global banking institutions via the Plaid API. Implemented massive concurrent background workers utilizing Go and RabbitMQ.',
+      technologies: 'React, Go, RabbitMQ, Docker, Plaid API',
+      link: 'https://github.com/johndoe/fintrack'
+    },
+    {
+      id: '4',
+      name: 'Echo — Secure Messaging Service',
+      description: 'End-to-end encrypted messaging application utilizing Signal Protocol. Features include disappearing messages, group chats scaling up to 1000 members, and cross-platform native synchronization.',
+      technologies: 'React Native, Node.js, WebRTC, Signal Protocol',
+      link: 'https://github.com/johndoe/echo-messenger'
     }
   ],
   certifications: [
