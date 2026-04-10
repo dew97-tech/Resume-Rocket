@@ -383,9 +383,9 @@
 
 .info-tooltip {
   position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
+  top: calc(100% + 8px);
+  left: 0;
+  /* Removed translateX to allow natural rightward expansion */
   padding: 8px 12px;
   background: var(--md-sys-color-inverse-surface);
   border: 1px solid var(--md-sys-color-outline-variant);
