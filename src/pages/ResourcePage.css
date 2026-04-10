@@ -1,111 +1,211 @@
-/* ======== RESOURCE PAGES ======== */
+/* ======== ELEGANT RESOURCE PAGES ======== */
 .resource-page {
   padding: 120px 0 80px;
   min-height: 100vh;
+  background: var(--md-sys-color-surface);
 }
 
 .resource-page .container {
-  max-width: 800px;
+  max-width: 1100px; /* Increased from 800px for dual column */
 }
 
+/* ======== HERO ======== */
 .resource-hero {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
 }
 
 .resource-hero h1 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 16px;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 900;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
 }
 
 .resource-hero p {
   color: var(--md-sys-color-on-surface-variant);
   font: var(--md-sys-typescale-body-large);
-  max-width: 600px;
+  font-size: 1.2rem;
+  max-width: 700px;
   margin: 0 auto;
+  line-height: 1.8;
 }
 
-.resource-card {
-  background: var(--md-sys-color-surface-container-low);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: var(--md-sys-shape-corner-large);
-  padding: 32px;
-  margin-bottom: 24px;
-  transition: all var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard);
+/* ======== EDITORIAL LAYOUT ======== */
+.resource-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 60px;
+  align-items: start;
 }
 
-.resource-card:hover {
-  border-color: var(--md-sys-color-outline);
-  background: var(--md-sys-color-surface-container);
+/* ======== SIDEBAR Navigation ======== */
+.resource-sidebar {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding-right: 20px;
 }
 
-.resource-card h2 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 12px;
+.toc-title {
+  font: var(--md-sys-typescale-label-large);
+  text-transform: uppercase;
+  color: var(--md-sys-color-outline);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.toc-list {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 12px;
 }
 
-.resource-card h3 {
-  font: var(--md-sys-typescale-title-medium);
-  margin: 16px 0 8px;
+.toc-link {
+  font: var(--md-sys-typescale-body-medium);
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+  transition: all var(--md-sys-motion-duration-short2) ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.toc-link:hover, .toc-link.active {
+  color: var(--md-sys-color-primary);
+  font-weight: 500;
+  transform: translateX(4px);
+}
+
+/* ======== ARTICLE CONTENT ======== */
+.resource-content {
+  font: var(--md-sys-typescale-body-large);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--md-sys-color-on-surface);
+  max-width: 750px;
+}
+
+.resource-section {
+  margin-bottom: 80px;
+  scroll-margin-top: 100px; /* Accounts for fixed headers when linked */
+}
+
+/* Removed border 'cards'. Reading is seamless and borderless now */
+.resource-section h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--md-sys-color-on-surface);
+  letter-spacing: -0.02em;
+}
+
+.resource-section h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 32px 0 16px;
   color: var(--md-sys-color-on-surface);
 }
 
-.resource-card p,
-.resource-card li {
+.resource-section p {
   color: var(--md-sys-color-on-surface-variant);
-  font: var(--md-sys-typescale-body-medium);
-  line-height: 1.7;
+  margin-bottom: 24px;
+  font-size: 1.15rem;
 }
 
-.resource-card ul,
-.resource-card ol {
-  padding-left: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.resource-list {
+  margin-bottom: 24px;
+  padding-left: 0;
+  list-style: none;
 }
 
-.resource-card .tip-highlight {
-  background: var(--md-sys-color-primary-container);
-  border-left: 3px solid var(--md-sys-color-primary);
-  padding: 12px 16px;
-  margin: 12px 0;
-  border-radius: 0 var(--md-sys-shape-corner-small) var(--md-sys-shape-corner-small) 0;
-  font: var(--md-sys-typescale-body-medium);
-  color: var(--md-sys-color-on-primary-container);
+.resource-list li {
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: 16px;
+  position: relative;
+  padding-left: 32px;
 }
 
+.resource-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--md-sys-color-primary);
+  font-weight: 900;
+}
+
+.resource-list li strong {
+  color: var(--md-sys-color-on-surface);
+}
+
+/* ======== HIGHLIGHTS / BLOCKQUOTES ======== */
+.tip-highlight {
+  background: var(--md-sys-color-surface-container);
+  border-left: 4px solid var(--md-sys-color-primary);
+  padding: 24px 32px;
+  margin: 32px 0;
+  border-radius: 0 var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--md-sys-color-on-surface);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Subtle depth */
+}
+
+/* ======== CTA TERMINAL ======== */
 .resource-cta {
   text-align: center;
-  margin-top: 48px;
-  padding: 40px;
-  background: var(--md-sys-color-primary-container);
-  border: 1px solid var(--md-sys-color-primary);
+  margin-top: 80px;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, var(--md-sys-color-surface-container-high), var(--md-sys-color-surface-container));
+  border: 1px solid var(--md-sys-color-outline-variant);
   border-radius: var(--md-sys-shape-corner-extra-large);
 }
 
 .resource-cta h3 {
-  font: var(--md-sys-typescale-headline-small);
-  margin-bottom: 12px;
-  color: var(--md-sys-color-on-primary-container);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--md-sys-color-on-surface);
 }
 
 .resource-cta p {
-  color: var(--md-sys-color-on-primary-container);
-  opacity: 0.85;
-  margin-bottom: 20px;
+  color: var(--md-sys-color-on-surface-variant);
+  margin-bottom: 32px;
+  font-size: 1.15rem;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 1024px) {
+  .resource-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .resource-sidebar {
+    position: relative;
+    top: 0;
+    max-height: none;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
 }
 
 @media (max-width: 768px) {
   .resource-hero h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
-  .resource-card {
-    padding: 24px;
+  .resource-section h2 {
+    font-size: 1.6rem;
+  }
+  .resource-content {
+    font-size: 1.05rem;
   }
 }

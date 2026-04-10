@@ -1,91 +1,165 @@
 import { motion } from 'framer-motion';
 import { FiBook, FiEdit3, FiFileText, FiGrid, FiLayers, FiTrendingUp } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './ResourcePage.css';
 
+const sections = [
+  { id: 'step-1', title: 'CV vs. Resume', icon: <FiBook /> },
+  { id: 'step-2', title: 'Personal Statement', icon: <FiEdit3 /> },
+  { id: 'step-3', title: 'Experience Section', icon: <FiLayers /> },
+  { id: 'step-4', title: 'Organizing Skills', icon: <FiGrid /> },
+  { id: 'step-5', title: 'Education & Certs', icon: <FiTrendingUp /> },
+  { id: 'step-6', title: 'Proofread & Polish', icon: <FiFileText /> },
+];
+
+function SectionReveal({ children, id }) {
+  return (
+    <motion.section 
+      id={id} 
+      className="resource-section"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.section>
+  );
+}
+
 export default function CVWritingGuide() {
-  return <motion.div className="page-wrapper resource-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-    <div className="container">
-      <div className="resource-hero">
-        <h1>Complete CV <span className="gradient-text">Writing Guide</span></h1>
-        <p>A step-by-step guide to writing a CV that opens doors to your dream career.</p>
-      </div>
+  const [activeSection, setActiveSection] = useState('step-1');
 
-      <div className="resource-card">
-        <h2><FiBook /> Step 1: Understand the Difference — CV vs. Resume</h2>
-        <p>While the terms are often used interchangeably, there's a key distinction:</p>
-        <ul>
-          <li><strong>Resume:</strong> A concise 1-2 page document tailored for specific job applications, common in the US and Canada.</li>
-          <li><strong>CV (Curriculum Vitae):</strong> A comprehensive document covering your entire academic and professional history, standard in Europe, Asia, and academic settings.</li>
-        </ul>
-        <div className="tip-highlight">💡 ResumeForge creates documents that work perfectly for both formats. Choose the template that best fits your region and industry.</div>
-      </div>
+  // Simple scroll spy behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionElements = sections.map(s => document.getElementById(s.id));
+      const scrollPosition = window.scrollY + 200; // Offset
 
-      <div className="resource-card">
-        <h2><FiEdit3 /> Step 2: Craft a Compelling Personal Statement</h2>
-        <p>Your personal statement or professional summary sits at the top of your CV and is the first thing recruiters read. Make it count.</p>
-        <h3>Formula for a Great Summary:</h3>
-        <ol>
-          <li>Your professional identity (e.g., "Senior Software Engineer")</li>
-          <li>Years of experience and key domain</li>
-          <li>Your top 2-3 achievements or strengths</li>
-          <li>What you're looking for</li>
-        </ol>
-        <div className="tip-highlight">Example: "Results-driven marketing manager with 8+ years of experience in B2B SaaS. Proven track record of growing enterprise revenue by 150% and managing cross-functional teams of 20+. Seeking a VP of Marketing role to drive strategic growth."</div>
-      </div>
+      for (let i = sectionElements.length - 1; i >= 0; i--) {
+        const el = sectionElements[i];
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i].id);
+          break;
+        }
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-      <div className="resource-card">
-        <h2><FiLayers /> Step 3: Structure Your Experience Section</h2>
-        <p>This is the meat of your CV. Each position should follow this pattern:</p>
-        <ul>
-          <li><strong>Job title</strong> — Clear and recognizable</li>
-          <li><strong>Company name</strong> — With a brief description if it's not well-known</li>
-          <li><strong>Dates</strong> — Month/Year format</li>
-          <li><strong>Achievements</strong> — 3-5 bullet points with quantified results</li>
-        </ul>
-        <p>Always list your experience in reverse chronological order — most recent first.</p>
-      </div>
+  return (
+    <motion.div className="page-wrapper resource-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+      <div className="container">
+        
+        <div className="resource-hero">
+          <h1>Complete CV <span className="gradient-text">Writing Guide</span></h1>
+          <p>A comprehensive step-by-step editorial to writing a CV that bypasses ATS filters and opens doors to your dream career.</p>
+        </div>
 
-      <div className="resource-card">
-        <h2><FiGrid /> Step 4: Organize Your Skills Effectively</h2>
-        <p>Group your skills into clear categories for maximum impact:</p>
-        <ul>
-          <li><strong>Technical Skills:</strong> Programming languages, tools, frameworks</li>
-          <li><strong>Soft Skills:</strong> Leadership, communication, problem-solving</li>
-          <li><strong>Industry Skills:</strong> Domain-specific knowledge and certifications</li>
-          <li><strong>Languages:</strong> Include proficiency levels</li>
-        </ul>
-      </div>
+        <div className="resource-layout">
+          {/* SIDEBAR TOC */}
+          <aside className="resource-sidebar">
+            <h4 className="toc-title">Table of Contents</h4>
+            <nav className="toc-list">
+              {sections.map(sec => (
+                <a 
+                  key={sec.id} 
+                  href={`#${sec.id}`}
+                  className={`toc-link ${activeSection === sec.id ? 'active' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(sec.id)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  {sec.title}
+                </a>
+              ))}
+            </nav>
+          </aside>
 
-      <div className="resource-card">
-        <h2><FiTrendingUp /> Step 5: Highlight Education & Certifications</h2>
-        <p>Include your educational background in reverse chronological order. For experienced professionals, education can be brief. For recent graduates, it should be detailed.</p>
-        <ul>
-          <li>Degree and field of study</li>
-          <li>Institution name and dates</li>
-          <li>GPA (if impressive — generally 3.5+)</li>
-          <li>Relevant coursework, honors, or thesis topics</li>
-          <li>Professional certifications (AWS, PMP, Google Analytics, etc.)</li>
-        </ul>
-      </div>
+          {/* MAIN ARTICLE CONTENT */}
+          <div className="resource-content">
+            
+            <SectionReveal id="step-1">
+              <h2><FiBook /> Step 1: Understand the Difference</h2>
+              <p>Before writing a single word, you must understand your target audience. While the terms "CV" and "Resume" are often used interchangeably in modern hybrid workspaces, there remains a critical technical distinction based on geography and industry:</p>
+              <ul className="resource-list">
+                <li><strong>Resume:</strong> A concise 1-2 page document strictly tailored for specific corporate job applications. Dominant in the US and Canada.</li>
+                <li><strong>CV (Curriculum Vitae):</strong> A comprehensive, multi-page chronological document covering your entire academic, publication, and professional history. The absolute standard in Europe, Asia, and academic settings.</li>
+              </ul>
+              <div className="tip-highlight">💡 <strong>Pro Tip:</strong> ResumeForge dynamically creates documents that scale beautifully for both formats! Choose a denser template (like Corporate) for a CV, or a minimalist template for a standard US Resume.</div>
+            </SectionReveal>
 
-      <div className="resource-card">
-        <h2><FiFileText /> Step 6: Proofread and Polish</h2>
-        <p>A single typo can cost you the interview. Before submitting:</p>
-        <ul>
-          <li>Read your CV out loud to catch awkward phrasing</li>
-          <li>Use spell-check tools (Grammarly, Hemingway)</li>
-          <li>Ask a friend or mentor to review</li>
-          <li>Ensure consistent formatting, dates, and punctuation</li>
-          <li>Test your PDF export to verify proper layout</li>
-        </ul>
-      </div>
+            <SectionReveal id="step-2">
+              <h2><FiEdit3 /> Step 2: Craft a Compelling Outline</h2>
+              <p>Your personal statement or professional summary sits at the absolute top of your document. It is arguably the most valuable real estate on the page and the very first thing recruiters read. Make it hit hard.</p>
+              <h3>Formula for a Great Summary:</h3>
+              <ul className="resource-list">
+                <li>State your professional identity explicitly (e.g., "Senior Software Engineer")</li>
+                <li>Declare your total years of experience and primary domain</li>
+                <li>Highlight your top 2-3 massive achievements or quantifiable strengths</li>
+                <li>Conclude with what exact value you are looking to bring to them</li>
+              </ul>
+              <div className="tip-highlight"><strong>Example:</strong> "Results-driven marketing manager with 8+ years of experience in B2B SaaS. Proven track record of growing enterprise revenue by 150% and managing cross-functional teams of 20+. Seeking a VP of Marketing role to drive strategic growth."</div>
+            </SectionReveal>
 
-      <div className="resource-cta">
-        <h3>Put This Guide Into Action</h3>
-        <p>Create your professional CV right now — it's completely free with ResumeForge.</p>
-        <Link to="/builder" className="btn btn-primary btn-lg">Build Your CV Now →</Link>
+            <SectionReveal id="step-3">
+              <h2><FiLayers /> Step 3: Structure Your Experience</h2>
+              <p>This is the literal meat of your CV. Recruiters scan this section looking for impact, not responsibilities. Every single position listed should strictly follow this architectural pattern:</p>
+              <ul className="resource-list">
+                <li><strong>Job title</strong> — Clear, recognizable, and industry-standard</li>
+                <li><strong>Company name</strong> — With a brief 1-sentence context description if it's a startup or not well-known</li>
+                <li><strong>Dates</strong> — Month/Year format is mandatory for ATS systems</li>
+                <li><strong>Achievements</strong> — 3-5 bullet points prioritizing quantified numbers and percentages</li>
+              </ul>
+              <p>Always list your experience in reverse chronological order — meaning your most recent overarching job is at the very top.</p>
+            </SectionReveal>
+
+            <SectionReveal id="step-4">
+              <h2><FiGrid /> Step 4: Organize Your Skills</h2>
+              <p>A chaotic list of 40 comma-separated skills is visually paralyzing and frustrating to read. Group your capabilities into distinct, clear categories for maximum scanning impact:</p>
+              <ul className="resource-list">
+                <li><strong>Technical Skills:</strong> Programming languages, software stacks, heavy machinery frameworks</li>
+                <li><strong>Soft Skills:</strong> Leadership methodologies, cross-functional communication, Agile</li>
+                <li><strong>Industry Hard-Skills:</strong> Domain-specific conceptual knowledge, compliance, and core certifications</li>
+                <li><strong>Languages:</strong> Only include if strictly relevant, always attaching proficiency levels (e.g., "Native", "B2")</li>
+              </ul>
+            </SectionReveal>
+
+            <SectionReveal id="step-5">
+              <h2><FiTrendingUp /> Step 5: Highlight Education & Certs</h2>
+              <p>Include your educational background in reverse chronological order. Context matters immensely here: for experienced professionals (5+ years), education should be extremely brief. For recent college graduates, it should be highly detailed and anchored to the top.</p>
+              <ul className="resource-list">
+                <li>Full Degree Name and isolated Field of Study</li>
+                <li>Institution name and localized dates</li>
+                <li>GPA (Only if it is objectively impressive — generally 3.5+ out of 4.0)</li>
+                <li>Any critical professional certifications (AWS, PMP, Series 7, Google Analytics, etc.)</li>
+              </ul>
+            </SectionReveal>
+
+            <SectionReveal id="step-6">
+              <h2><FiFileText /> Step 6: Proofread and Polish</h2>
+              <p>A single typo can cost you the interview. Because a Resume represents your attention to detail, a typo implies you lack it. Before you even think about submitting:</p>
+              <ul className="resource-list">
+                <li>Read your CV out loud verbally to catch awkward synthetic phrasing</li>
+                <li>Run it through strict grammar algorithms (Grammarly, Hemingway App)</li>
+                <li>Ask a senior friend or industry mentor to aggressively review it</li>
+                <li>Ensure absolutely consistent formatting (Are periods at the end of all bullets or none?)</li>
+                <li>Test your PDF export to verify proper A4 layout and clipping boundaries</li>
+              </ul>
+            </SectionReveal>
+
+            <div className="resource-cta">
+              <h3>Put This Guide Into Action Immediately</h3>
+              <p>Why wait? You have the knowledge, now use the ultimate tool. Create your professional architectural CV right now — completely free and local within ResumeForge.</p>
+              <Link to="/builder" className="btn btn-primary btn-lg">Build Your CV Now →</Link>
+            </div>
+
+          </div>
+        </div>
       </div>
-    </div>
-  </motion.div>;
+    </motion.div>
+  );
 }
