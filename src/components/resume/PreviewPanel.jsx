@@ -202,7 +202,10 @@ export default function PreviewPanel() {
   return <div className="preview-panel">
       <div className="preview-toolbar">
         <div className="toolbar-group">
-          <label>Template</label>
+          <label>
+            Template
+            <InfoTooltip text="Select the base architectural layout structure for your resume" />
+          </label>
           <select className="toolbar-select" value={settings.template} onChange={e => updateSetting('template', e.target.value)}>
             {Object.entries(templates).map(([key, t]) => <option key={key} value={key}>{t.label}</option>)}
           </select>
@@ -211,14 +214,20 @@ export default function PreviewPanel() {
         <div className="toolbar-divider" />
 
         <div className="toolbar-group">
-          <label>Color</label>
+          <label>
+            Color
+            <InfoTooltip text="Customize the primary theme tint to match your personal brand" />
+          </label>
           <input type="color" className="toolbar-color" value={settings.primaryColor} onChange={e => updateSetting('primaryColor', e.target.value)} />
         </div>
 
         <div className="toolbar-divider" />
 
         <div className="toolbar-group">
-          <label>Font</label>
+          <label>
+            Font
+            <InfoTooltip text="Choose a typography style for global application" />
+          </label>
           <select className="toolbar-select" value={settings.fontFamily} onChange={e => updateSetting('fontFamily', e.target.value)}>
             {fontCategories.map(cat => <optgroup key={cat.label} label={cat.label}>
                 {cat.fonts.map(f => <option key={f} value={f}>{f}</option>)}
@@ -249,7 +258,10 @@ export default function PreviewPanel() {
         <div className="toolbar-divider" />
 
         <div className="toolbar-group zoom-group">
-          <label>Zoom</label>
+          <label>
+            Zoom
+            <InfoTooltip text="Scale the visual builder relative to your screen (Does not alter native PDF scale)" />
+          </label>
           <button className="zoom-btn" onClick={() => setZoom(z => Math.max(0.3, z - 0.1))} title="Zoom out"><FiMinus size={14} /></button>
           <span className="zoom-value">{Math.round(zoom * 100)}%</span>
           <button className="zoom-btn" onClick={() => setZoom(z => Math.min(1.5, z + 0.1))} title="Zoom in"><FiPlus size={14} /></button>
