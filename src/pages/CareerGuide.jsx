@@ -125,7 +125,7 @@ export default function CareerGuide() {
                 <li><strong>Reverse Interview:</strong> Confidently ask them about failure rates, team dynamics, and technical debt</li>
                 <li><strong>Follow up:</strong> Instantly send a highly personalized thank-you dispatch within 24 hours</li>
               </ul>
-              <div className="tip-highlight">💡 <strong>Pro Tip:</strong> Leverage ResumeForge's automatic cover letter generator to instantly spin up customized pre-interview context emails.</div>
+              <div className="tip-highlight">💡 <strong>Pro Tip:</strong> Leverage Resume Rocket's automatic cover letter generator to instantly spin up customized pre-interview context emails.</div>
             </SectionReveal>
 
             <SectionReveal id="guide-5">
@@ -151,7 +151,7 @@ export default function CareerGuide() {
 
             <div className="resource-cta">
               <h3>Start Your True Career Journey Now</h3>
-              <p>The mathematically perfect resume forces doors wide open. Build your architectural overview absolutely free with ResumeForge.</p>
+              <p>The mathematically perfect resume forces doors wide open. Build your architectural overview absolutely free with Resume Rocket.</p>
               <Link to="/builder" className="btn btn-primary btn-lg">Create Your Artifact →</Link>
             </div>
 

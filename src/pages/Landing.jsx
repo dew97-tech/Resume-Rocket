@@ -98,7 +98,7 @@ const features = [{
 const testimonials = [{
   name: 'Sarah Chen',
   role: 'Software Engineer at Google',
-  text: 'ResumeForge helped me land my dream job. The templates are stunning and the real-time preview saved me hours of formatting.',
+  text: 'Resume Rocket helped me land my dream job. The templates are stunning and the real-time preview saved me hours of formatting.',
   avatar: 'SC',
   color: '#7c5cfc'
 }, {
@@ -264,7 +264,7 @@ export default function Landing() {
               Loved by <span className="gradient-text">Professionals</span>
             </h2>
             <p className="section-subtitle">
-              Join thousands who've transformed their careers with ResumeForge.
+              Join thousands who've transformed their careers with Resume Rocket.
             </p>
           </RevealSection>
 
@@ -355,7 +355,7 @@ export default function Landing() {
                 <div className="pricing-label gradient-text" style={{
                 fontWeight: 700,
                 fontSize: '1.3rem'
-              }}>ResumeForge</div>
+              }}>Resume Rocket</div>
                 <div className="pricing-price">
                   <span className="price-amount gradient-text price-pulse">$0</span>
                   <span className="price-period">/forever</span>
@@ -394,7 +394,7 @@ export default function Landing() {
                 Ready to Build Your <span className="gradient-text">Dream Resume?</span>
               </h2>
               <p className="final-cta-text">
-                Join 50,000+ professionals who've already created stunning resumes with ResumeForge.
+                Join 50,000+ professionals who've already created stunning resumes with Resume Rocket.
               </p>
               <Link to="/builder" className="btn btn-primary btn-lg">
                 Start Building Now <FiArrowRight />

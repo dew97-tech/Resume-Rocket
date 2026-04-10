@@ -11,7 +11,7 @@ export default function Footer() {
               <span className="gradient-text" style={{
               fontWeight: 800,
               fontSize: '1.2rem'
-            }}>ResumeForge</span>
+            }}>Resume Rocket</span>
             </div>
             <p className="footer-desc">
               Create stunning, professional resumes in minutes. 100% free, no sign-up needed.
@@ -47,7 +47,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>Made with <FiHeart size={14} style={{ color: 'var(--error)' }} /> by ResumeForge © {new Date().getFullYear()}</p>
+          <p>Made with <FiHeart size={14} style={{ color: 'var(--error)' }} /> by Resume Rocket © {new Date().getFullYear()}</p>
         </div>
       </div>
     </footer>;

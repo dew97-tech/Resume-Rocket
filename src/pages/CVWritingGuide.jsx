@@ -89,7 +89,7 @@ export default function CVWritingGuide() {
                 <li><strong>Resume:</strong> A concise 1-2 page document strictly tailored for specific corporate job applications. Dominant in the US and Canada.</li>
                 <li><strong>CV (Curriculum Vitae):</strong> A comprehensive, multi-page chronological document covering your entire academic, publication, and professional history. The absolute standard in Europe, Asia, and academic settings.</li>
               </ul>
-              <div className="tip-highlight">💡 <strong>Pro Tip:</strong> ResumeForge dynamically creates documents that scale beautifully for both formats! Choose a denser template (like Corporate) for a CV, or a minimalist template for a standard US Resume.</div>
+              <div className="tip-highlight">💡 <strong>Pro Tip:</strong> Resume Rocket dynamically creates documents that scale beautifully for both formats! Choose a denser template (like Corporate) for a CV, or a minimalist template for a standard US Resume.</div>
             </SectionReveal>
 
             <SectionReveal id="step-2">
@@ -153,7 +153,7 @@ export default function CVWritingGuide() {
 
             <div className="resource-cta">
               <h3>Put This Guide Into Action Immediately</h3>
-              <p>Why wait? You have the knowledge, now use the ultimate tool. Create your professional architectural CV right now — completely free and local within ResumeForge.</p>
+              <p>Why wait? You have the knowledge, now use the ultimate tool. Create your professional architectural CV right now — completely free and local within Resume Rocket.</p>
               <Link to="/builder" className="btn btn-primary btn-lg">Build Your CV Now →</Link>
             </div>
 

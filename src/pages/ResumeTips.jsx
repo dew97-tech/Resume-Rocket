@@ -126,7 +126,7 @@ export default function ResumeTips() {
             <SectionReveal id="tip-5">
               <h2><FiFileText /> The Perfect Resume Length</h2>
               <p>For most professionals possessing 5-15 years of experience, a standard 2-page resume is highly ideal. Fresh graduates or juniors should aim for exactly 1 page. Extreme senior executives or academics may use up to 3 pages.</p>
-              <div className="tip-highlight">💡 <strong>Pro Tip:</strong> Modern PDF layouts can break easily. ResumeForge natively tracks your physical A4 page boundary and automatically handles vertical pagination, seamlessly flowing your content without slicing paragraphs awkwardly.</div>
+              <div className="tip-highlight">💡 <strong>Pro Tip:</strong> Modern PDF layouts can break easily. Resume Rocket natively tracks your physical A4 page boundary and automatically handles vertical pagination, seamlessly flowing your content without slicing paragraphs awkwardly.</div>
             </SectionReveal>
 
             <SectionReveal id="tip-6">
@@ -143,7 +143,7 @@ export default function ResumeTips() {
 
             <div className="resource-cta">
               <h3>Ready to Apply These Expert Principles?</h3>
-              <p>Stop wrestling with Word documents. Build a mathematically polished, ATS-optimized professional resume in absolute minutes with ResumeForge — 100% free.</p>
+              <p>Stop wrestling with Word documents. Build a mathematically polished, ATS-optimized professional resume in absolute minutes with Resume Rocket — 100% free.</p>
               <Link to="/builder" className="btn btn-primary btn-lg">Deploy Your Resume Now →</Link>
             </div>
 

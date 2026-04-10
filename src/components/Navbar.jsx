@@ -29,7 +29,7 @@ export default function Navbar() {
       <div className="navbar-inner container">
         <Link to="/" className="navbar-logo">
           <span className="logo-icon">⬡</span>
-          <span className="logo-text gradient-text">ResumeForge</span>
+          <span className="logo-text gradient-text">Resume Rocket</span>
         </Link>
 
         <div className="navbar-links">
