@@ -1,6 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { FiArrowRight, FiCheck, FiChevronLeft, FiChevronRight, FiDownload, FiEdit3, FiLayout, FiMoon, FiShield, FiStar, FiZap } from 'react-icons/fi';
+import { FiArrowRight, FiCheck, FiChevronLeft, FiChevronRight, FiDownload, FiEdit3, FiLayout, FiMoon, FiShield, FiStar, FiZap, FiDroplet } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import './Landing.css';
 function RevealSection({
@@ -83,9 +83,9 @@ const features = [{
   title: 'PDF Export',
   desc: 'Download your resume and cover letter as perfectly formatted PDF files.'
 }, {
-  icon: <FiMoon size={28} />,
-  title: 'Dark & Light Mode',
-  desc: 'Work comfortably day or night with seamless theme switching.'
+  icon: <FiDroplet size={28} />,
+  title: 'Match Your Vibe',
+  desc: 'Dynamically shift your aesthetic on the fly with custom Accent Colors and seamless Dark/Light mode integration.'
 }, {
   icon: <FiZap size={28} />,
   title: 'Smart Cover Letters',

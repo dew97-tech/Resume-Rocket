@@ -117,10 +117,10 @@
   --accent: var(--md-sys-color-primary);
   --accent-light: var(--md-sys-color-primary);
   --accent-dark: var(--md-sys-color-inverse-primary);
-  --accent-glow: rgba(201, 184, 255, 0.25);
+  --accent-glow: rgba(var(--md-sys-color-primary-rgb, 124, 92, 252), 0.25);
   --gradient-start: var(--md-sys-color-primary);
-  --gradient-mid: var(--md-sys-color-tertiary);
-  --gradient-end: var(--md-sys-color-tertiary);
+  --gradient-mid: var(--md-sys-color-secondary-container);
+  --gradient-end: var(--md-sys-color-primary-container);
   --glass-bg: var(--md-sys-color-surface-container);
   --glass-bg-hover: var(--md-sys-color-surface-container-high);
   --glass-border: var(--md-sys-color-outline-variant);
