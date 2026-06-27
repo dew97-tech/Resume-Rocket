@@ -121,11 +121,12 @@
   --gradient-start: var(--md-sys-color-primary);
   --gradient-mid: var(--md-sys-color-secondary-container);
   --gradient-end: var(--md-sys-color-primary-container);
-  --glass-bg: var(--md-sys-color-surface-container);
-  --glass-bg-hover: var(--md-sys-color-surface-container-high);
-  --glass-border: var(--md-sys-color-outline-variant);
-  --glass-border-hover: var(--md-sys-color-outline);
-  --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --glass-bg: rgba(33, 31, 38, 0.6);
+  --glass-bg-hover: rgba(43, 41, 48, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.16);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --glass-inner-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --success: var(--md-sys-color-success);
   --error: var(--md-sys-color-error);
   --warning: var(--md-sys-color-warning);
@@ -208,9 +209,14 @@
   --md-sys-color-info: #2563EB;
   --md-sys-color-on-info: #FFFFFF;
 
-  /* — Backward-compat overrides — */
+  /* — Glassmorphism overrides — */
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-bg-hover: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-border-hover: rgba(0, 0, 0, 0.12);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --glass-inner-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
   --accent-glow: rgba(103, 80, 164, 0.18);
-  --glass-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
 /* ---------- Reset & Base ---------- */
@@ -319,13 +325,18 @@ ul, ol {
 .surface-high    { background: var(--md-sys-color-surface-container-high); }
 .surface-highest { background: var(--md-sys-color-surface-container-highest); }
 
-/* ---------- Glassmorphism Utilities (kept for backward compat) ---------- */
+/* ============================================
+   Glassmorphism Design System
+   Pillars: transparency | backdrop-blur | defined border | layered hierarchy
+   ============================================ */
+
+/* --- Base Glass (small/constrained elements — safe for backdrop-filter) --- */
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--glass-shadow), var(--glass-inner-shadow);
 }
 
 .glass:hover {
@@ -333,12 +344,13 @@ ul, ol {
   border-color: var(--glass-border-hover);
 }
 
+/* --- Glass Card (premium frosted panels) --- */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
+  box-shadow: var(--glass-shadow), var(--glass-inner-shadow);
   border-radius: var(--md-sys-shape-corner-large);
   padding: 24px;
   transition: all var(--transition-normal);
@@ -348,9 +360,10 @@ ul, ol {
   background: var(--glass-bg-hover);
   border-color: var(--glass-border-hover);
   transform: translateY(-2px);
-  box-shadow: var(--glass-shadow), 0 0 40px var(--accent-glow);
+  box-shadow: var(--glass-shadow), var(--glass-inner-shadow), 0 0 40px var(--accent-glow);
 }
 
+/* --- Glass Input (frosted fields with enhanced readability) --- */
 .glass-input {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--blur-sm));
@@ -366,11 +379,23 @@ ul, ol {
 
 .glass-input:focus {
   border-color: var(--md-sys-color-primary);
-  box-shadow: 0 0 0 3px var(--accent-glow);
+  box-shadow: var(--glass-inner-shadow), 0 0 0 3px var(--accent-glow);
+  background: var(--glass-bg-hover);
 }
 
 .glass-input::placeholder {
   color: var(--md-sys-color-outline);
+}
+
+/* --- Performance safeguard: disable backdrop-filter on large scrolling surfaces --- */
+.page-wrapper,
+.section,
+.container,
+.hero,
+.features-grid,
+.pricing-cards {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* ---------- Button Variants ---------- */

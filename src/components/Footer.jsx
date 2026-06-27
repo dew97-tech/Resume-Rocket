@@ -27,6 +27,16 @@ export default function Footer() {
           </div>
 
           <div className="footer-links">
+            <h4 className="footer-heading">Toolkit</h4>
+            <ul>
+              <li><Link to="/toolkit/cv-checker">CV Checker</Link></li>
+              <li><Link to="/toolkit/experience-formatter">Experience Formatter</Link></li>
+              <li><Link to="/toolkit/readme-generator">README Generator</Link></li>
+              <li><Link to="/toolkit/cold-email">Cold Email Generator</Link></li>
+            </ul>
+          </div>
+
+          <div className="footer-links">
             <h4 className="footer-heading">Resources</h4>
             <ul>
               <li><Link to="/resume-tips">Resume Tips</Link></li>

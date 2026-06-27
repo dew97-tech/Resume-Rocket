@@ -408,6 +408,31 @@
   }
 }
 
+/* ======== TOOLKIT PROMO ======== */
+.toolkit-promo-card {
+  text-align: center;
+  padding: 60px 40px;
+  border: 1px solid var(--md-sys-color-primary);
+}
+
+.toolkit-promo-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.toolkit-pill {
+  padding: 8px 18px;
+  border-radius: var(--md-sys-shape-corner-full);
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  font: var(--md-sys-typescale-label-large);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
 @media (max-width: 480px) {
   .hero-title {
     font-size: 2rem;

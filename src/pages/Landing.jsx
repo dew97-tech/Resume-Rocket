@@ -257,6 +257,30 @@ export default function Landing() {
       </section>
 
 
+      <section className="section toolkit-promo-section">
+        <div className="container">
+          <RevealSection>
+            <div className="toolkit-promo-card glass-card">
+              <h2 className="section-title" style={{ marginBottom: 12 }}>
+                Explore Our <span className="gradient-text">Job Toolkit</span>
+              </h2>
+              <p className="section-subtitle" style={{ marginBottom: 32 }}>
+                CV auditing, experience formatting, GitHub READMEs, and cold email templates — all free.
+              </p>
+              <div className="toolkit-promo-pills">
+                <span className="toolkit-pill">CV Checker</span>
+                <span className="toolkit-pill">Experience Formatter</span>
+                <span className="toolkit-pill">README Generator</span>
+                <span className="toolkit-pill">Cold Email Generator</span>
+              </div>
+              <Link to="/toolkit" className="btn btn-primary btn-lg">
+                Explore Toolkit <FiArrowRight />
+              </Link>
+            </div>
+          </RevealSection>
+        </div>
+      </section>
+
       <section className="section testimonials-section">
         <div className="container">
           <RevealSection>

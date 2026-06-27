@@ -13,6 +13,9 @@ const navLinks = [{
 }, {
   path: '/cover-letter',
   label: 'Cover Letter'
+}, {
+  path: '/toolkit',
+  label: 'Toolkit'
 }];
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);

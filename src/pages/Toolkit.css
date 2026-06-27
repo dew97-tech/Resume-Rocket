@@ -1,0 +1,90 @@
+.tk-hero {
+  padding-top: 140px;
+  padding-bottom: 40px;
+  text-align: center;
+}
+
+.tk-hero-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: var(--md-sys-shape-corner-full);
+  font: var(--md-sys-typescale-label-large);
+  color: var(--md-sys-color-primary);
+  margin-bottom: 24px;
+}
+
+.tk-title {
+  font: var(--md-sys-typescale-display-medium);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.tk-subtitle {
+  font: var(--md-sys-typescale-body-large);
+  color: var(--md-sys-color-on-surface-variant);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.tk-grid-section {
+  padding-top: 20px;
+}
+
+.tk-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tk-card {
+  text-align: center;
+  padding: 40px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tk-card-icon {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--md-sys-shape-corner-large);
+  margin-bottom: 20px;
+}
+
+.tk-card-title {
+  font: var(--md-sys-typescale-title-large);
+  margin-bottom: 10px;
+}
+
+.tk-card-desc {
+  font: var(--md-sys-typescale-body-medium);
+  color: var(--md-sys-color-on-surface-variant);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.tk-card-cta {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .tk-grid {
+    grid-template-columns: 1fr;
+  }
+}
