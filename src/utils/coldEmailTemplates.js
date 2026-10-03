@@ -1,15 +1,15 @@
 export const EMAIL_CATEGORIES = [
-  { id: 'job-application', label: 'Job Application', icon: '💼' },
-  { id: 'networking', label: 'Networking', icon: '🤝' },
-  { id: 'freelancing', label: 'Freelancing', icon: '💻' },
-  { id: 'internship', label: 'Internship', icon: '🎓' }
+  { id: 'job-application', label: 'Job Application' },
+  { id: 'networking', label: 'Networking' },
+  { id: 'freelancing', label: 'Freelancing' },
+  { id: 'internship', label: 'Internship' }
 ];
 
 export const EMAIL_TONES = [
-  { value: 'professional', label: 'Professional', icon: '💼' },
-  { value: 'friendly', label: 'Friendly', icon: '😊' },
-  { value: 'confident', label: 'Confident', icon: '💪' },
-  { value: 'direct', label: 'Direct', icon: '🎯' }
+  { value: 'professional', label: 'Professional' },
+  { value: 'friendly', label: 'Friendly' },
+  { value: 'confident', label: 'Confident' },
+  { value: 'direct', label: 'Direct' }
 ];
 
 function fill(template, form) {

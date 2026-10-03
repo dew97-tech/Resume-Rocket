@@ -1,79 +1,94 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiZap } from 'react-icons/fi';
 import { Link, useLocation } from 'react-router-dom';
+import BrandLogo from './BrandLogo';
 import './Navbar.css';
 import ThemeToggle from './ThemeToggle';
-const navLinks = [{
-  path: '/',
-  label: 'Home'
-}, {
-  path: '/builder',
-  label: 'Resume Builder'
-}, {
-  path: '/cover-letter',
-  label: 'Cover Letter'
-}, {
-  path: '/toolkit',
-  label: 'Toolkit'
-}];
+
+const navLinks = [
+  { path: '/', label: 'Home' },
+  { path: '/builder', label: 'Resume Builder' },
+  { path: '/cover-letter', label: 'Cover Letter' },
+  { path: '/toolkit', label: 'Toolkit' },
+];
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  return <motion.nav className="navbar glass" initial={{
-    y: -80
-  }} animate={{
-    y: 0
-  }} transition={{
-    type: 'spring',
-    stiffness: 200,
-    damping: 30
-  }}>
+
+  return (
+    <nav className="navbar neo-nav">
       <div className="navbar-inner container">
         <Link to="/" className="navbar-logo">
-          <span className="logo-icon">⬡</span>
-          <span className="logo-text gradient-text">Resume Rocket</span>
+          <BrandLogo size={36} />
+          <span className="logo-title">ResumeRocket</span>
         </Link>
 
         <div className="navbar-links">
-          {navLinks.map(link => <Link key={link.path} to={link.path} className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}>
-              {link.label}
-              {location.pathname === link.path && <motion.div className="nav-indicator" layoutId="nav-indicator" />}
-            </Link>)}
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`neo-nav-link ${isActive ? 'active' : ''}`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="navbar-actions">
           <ThemeToggle />
-          <Link to="/builder" className="btn btn-primary btn-sm navbar-cta">
-            Get Started
+          <Link to="/builder" className="btn btn-primary btn-sm neo-navbar-cta">
+            <FiZap size={16} />
+            <span>BUILD FREE</span>
           </Link>
         </div>
 
-        <button className="navbar-hamburger" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Toggle menu">
-          {mobileOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        <button
+          className="neo-hamburger-btn"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <FiX size={22} /> : <FiMenu size={22} />}
         </button>
       </div>
 
       <AnimatePresence>
-        {mobileOpen && <motion.div className="navbar-mobile glass" initial={{
-        opacity: 0,
-        height: 0
-      }} animate={{
-        opacity: 1,
-        height: 'auto'
-      }} exit={{
-        opacity: 0,
-        height: 0
-      }} transition={{
-        duration: 0.3
-      }}>
-            {navLinks.map(link => <Link key={link.path} to={link.path} className={`mobile-link ${location.pathname === link.path ? 'active' : ''}`} onClick={() => setMobileOpen(false)}>
+        {mobileOpen && (
+          <motion.div
+            className="navbar-mobile-drawer"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`mobile-link ${location.pathname === link.path ? 'active' : ''}`}
+                onClick={() => setMobileOpen(false)}
+              >
                 {link.label}
-              </Link>)}
+              </Link>
+            ))}
             <div className="mobile-actions">
-              <ThemeToggle />
+              <Link
+                to="/builder"
+                className="btn btn-primary btn-sm"
+                style={{ width: '100%' }}
+                onClick={() => setMobileOpen(false)}
+              >
+                <FiZap size={16} /> BUILD RESUME NOW
+              </Link>
             </div>
-          </motion.div>}
+          </motion.div>
+        )}
       </AnimatePresence>
-    </motion.nav>;
+    </nav>
+  );
 }

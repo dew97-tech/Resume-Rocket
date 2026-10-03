@@ -1,3 +1,7 @@
+/* ============================================
+   Neobrutalism Cover Letter Generator Styles
+   ============================================ */
+
 .cl-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -8,68 +12,143 @@
 .cl-editor {
   overflow-y: auto;
   padding: 24px;
-  background: var(--md-sys-color-surface-container-low);
-  border-right: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--neo-bg);
+  border-right: var(--neo-border);
+}
+
+.cl-editor .editor-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px dashed var(--neo-border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cl-editor .editor-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.cl-editor .editor-header p {
+  color: var(--neo-ink-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .cl-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .cl-templates {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .cl-template-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
 }
 
 .cl-template-card {
   text-align: left;
-  padding: 14px;
+  padding: 16px;
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: all var(--transition-normal);
-}
-
-.cl-template-card.selected {
-  border-color: var(--md-sys-color-primary);
-  box-shadow: 0 0 16px var(--accent-glow);
+  background: var(--neo-surface);
+  border: var(--neo-border-sm);
+  box-shadow: var(--neo-shadow-xs);
+  border-radius: var(--radius-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .cl-template-card:hover {
-  transform: translateY(-2px);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--neo-shadow-sm);
+}
+
+.cl-template-card.selected {
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+  transform: translate(-2px, -2px);
 }
 
 .cl-tc-name {
-  font-weight: 700;
-  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
   margin-bottom: 4px;
 }
 
 .cl-tc-desc {
-  font: var(--md-sys-typescale-body-small);
-  color: var(--md-sys-color-outline);
+  font-size: 0.8rem;
+  color: var(--neo-ink-muted);
   line-height: 1.4;
+}
+
+.cl-template-card.selected .cl-tc-desc {
+  color: var(--neo-primary-fg);
+  opacity: 0.75;
+}
+
+/* Tone chips — hover/selected use the runtime accent color */
+.cl-tone-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cl-tone-chip {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  cursor: pointer;
+  background: var(--neo-surface);
+  color: var(--neo-ink);
+  border: var(--neo-border-sm);
+  box-shadow: var(--neo-shadow-xs);
+  border-radius: var(--radius-sm);
+}
+
+.cl-tone-chip:hover {
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+}
+
+.cl-tone-chip.selected {
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+  transform: translate(-2px, -2px);
+}
+
+.cl-tone-chip:focus-visible {
+  outline: 3px solid var(--neo-primary);
+  outline-offset: 2px;
 }
 
 .cl-preview-panel {
   display: flex;
   flex-direction: column;
-  background: var(--md-sys-color-surface-container);
+  background: var(--neo-surface-dim);
   overflow: hidden;
 }
 
 .cl-preview-wrapper {
   width: 210mm;
   min-height: 297mm;
-  background: #fff;
-  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
+  background: #FFFFFF;
+  border: var(--neo-border);
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.4);
+  border-radius: var(--radius-xs);
   overflow: hidden;
   flex-shrink: 0;
   zoom: 0.6;
@@ -82,7 +161,7 @@
 }
 
 .cl-generated-text {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11pt;
   line-height: 1.7;
   color: #1C1B1F;
@@ -97,13 +176,8 @@
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  color: var(--md-sys-color-outline);
-  gap: 12px;
-}
-
-.cl-placeholder p {
-  font: var(--md-sys-typescale-body-medium);
-  color: var(--md-sys-color-outline);
+  color: var(--neo-ink-muted);
+  text-align: center;
 }
 
 @media (max-width: 1024px) {
@@ -113,16 +187,12 @@
   }
   .cl-editor {
     border-right: none;
-    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    border-bottom: var(--neo-border);
   }
   .cl-preview-panel {
     min-height: 80vh;
   }
-  .cl-template-cards {
-    grid-template-columns: 1fr;
-  }
   .cl-preview-wrapper {
     width: 100%;
-    min-height: auto;
   }
 }

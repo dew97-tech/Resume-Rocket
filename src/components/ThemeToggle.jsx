@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { FiDroplet, FiMoon, FiSun } from 'react-icons/fi';
+import { FiCheck, FiDroplet, FiMoon, FiSun } from 'react-icons/fi';
 import { useTheme } from '../contexts/ThemeContext';
 import './ThemeToggle.css';
 
@@ -10,8 +10,6 @@ export default function ThemeToggle() {
     toggleTheme,
     seedColor,
     setSeedColor,
-    dynamicColor,
-    setDynamicColor,
     presetColors,
   } = useTheme();
 
@@ -32,91 +30,64 @@ export default function ThemeToggle() {
 
   return (
     <div className="theme-controls">
-      {/* Color Picker Button */}
+      {/* Accent Color Popover */}
       <div className="color-picker-wrap" ref={pickerRef}>
-        <motion.button
-          className="theme-toggle-btn"
+        <button
+          className="neo-icon-btn"
           onClick={() => setShowPicker(!showPicker)}
-          whileTap={{ scale: 0.85 }}
-          whileHover={{ scale: 1.1 }}
-          aria-label="Change accent color"
+          aria-label="Change neo theme color"
+          title="Change theme color"
         >
           <FiDroplet size={18} />
-        </motion.button>
+          <span className="neo-swatch-indicator" style={{ background: seedColor }} />
+        </button>
 
         <AnimatePresence>
           {showPicker && (
             <motion.div
-              className="color-picker-popover"
-              initial={{ opacity: 0, y: -8, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
+              className="neo-popover"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.15 }}
             >
-              <div className="picker-header">
-                <span className="picker-title">Accent Color</span>
-                <label className="dynamic-toggle">
-                  <input
-                    type="checkbox"
-                    checked={dynamicColor}
-                    onChange={(e) => setDynamicColor(e.target.checked)}
-                  />
-                  <span className="dynamic-toggle-label">Dynamic</span>
-                </label>
+              <div className="neo-popover-header">
+                <span className="neo-popover-title">NEO ACCENT PALETTE</span>
               </div>
 
-              <div className="preset-swatches">
-                {presetColors.map((color) => (
-                  <button
-                    key={color.hex}
-                    className={`preset-swatch ${seedColor === color.hex ? 'active' : ''}`}
-                    style={{ background: color.hex }}
-                    onClick={() => {
-                      setSeedColor(color.hex);
-                      if (!dynamicColor) setDynamicColor(true);
-                    }}
-                    aria-label={`Set ${color.label} accent`}
-                    title={color.label}
-                  />
-                ))}
-              </div>
-
-              <div className="custom-color-row">
-                <label className="custom-color-label">Custom</label>
-                <input
-                  type="color"
-                  value={seedColor}
-                  onChange={(e) => {
-                    setSeedColor(e.target.value);
-                    if (!dynamicColor) setDynamicColor(true);
-                  }}
-                  className="custom-color-input"
-                />
-                <span className="custom-color-hex">{seedColor.toUpperCase()}</span>
+              <div className="neo-swatches-grid">
+                {presetColors.map((color) => {
+                  const isSelected = seedColor.toLowerCase() === color.hex.toLowerCase();
+                  return (
+                    <button
+                      key={color.id}
+                      className={`neo-swatch-tile ${isSelected ? 'selected' : ''}`}
+                      style={{ background: color.hex }}
+                      onClick={() => {
+                        setSeedColor(color.hex);
+                        setShowPicker(false);
+                      }}
+                      title={color.label}
+                    >
+                      {isSelected && <FiCheck size={18} color="#000000" strokeWidth={3} />}
+                    </button>
+                  );
+                })}
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Theme Toggle Button */}
-      <motion.button
-        className="theme-toggle-btn"
+      {/* Dark / Light Toggle */}
+      <button
+        className="neo-icon-btn"
         onClick={toggleTheme}
-        whileTap={{ scale: 0.85 }}
-        whileHover={{ scale: 1.1 }}
         aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+        title={`Toggle to ${theme === 'dark' ? 'Light (Paper)' : 'Dark (Cyber)'} mode`}
       >
-        <motion.div
-          key={theme}
-          initial={{ rotate: -90, opacity: 0 }}
-          animate={{ rotate: 0, opacity: 1 }}
-          exit={{ rotate: 90, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
-        </motion.div>
-      </motion.button>
+        {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
+      </button>
     </div>
   );
 }

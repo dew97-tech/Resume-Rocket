@@ -123,16 +123,24 @@ export default function CoverLetter() {
           </div>
 
           <div className="cl-form">
-            <div className="grid-2">
-              <div className="form-group">
-                <label>Your Name</label>
-                <input className="glass-input" placeholder="John Doe" value={form.name} onChange={e => update('name', e.target.value)} />
-              </div>
-              <div className="form-group">
-                <label>Tone</label>
-                <select className="glass-input" value={form.tone} onChange={e => update('tone', e.target.value)}>
-                  {coverLetterTones.map(t => <option key={t.value} value={t.value}>{t.icon} {t.label}</option>)}
-                </select>
+            <div className="form-group">
+              <label>Your Name</label>
+              <input className="glass-input" placeholder="John Doe" value={form.name} onChange={e => update('name', e.target.value)} />
+            </div>
+            <div className="form-group">
+              <label>Tone</label>
+              <div className="cl-tone-chips" role="group" aria-label="Tone">
+                {coverLetterTones.map(t => (
+                  <button
+                    type="button"
+                    key={t.value}
+                    className={`cl-tone-chip neo-lift${form.tone === t.value ? ' selected' : ''}`}
+                    aria-pressed={form.tone === t.value}
+                    onClick={() => update('tone', t.value)}
+                  >
+                    {t.label}
+                  </button>
+                ))}
               </div>
             </div>
             <div className="grid-2">

@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useLayoutEffect } from 'react';
-import { FiDownload, FiEye, FiInfo, FiMinus, FiPlus, FiPrinter, FiRefreshCw, FiUpload, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiDownload, FiEye, FiInfo, FiMinus, FiPlus, FiPrinter, FiRefreshCw, FiUpload, FiChevronLeft, FiChevronRight, FiZap } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import { useResume } from '../../contexts/ResumeContext';
 import { useToast } from '../../contexts/ToastContext';
 import { exportToPdf } from '../../utils/pdfExport';
@@ -12,12 +13,14 @@ import ElegantTemplate from './templates/ElegantTemplate';
 import ExecutiveTemplate from './templates/ExecutiveTemplate';
 import MinimalTemplate from './templates/MinimalTemplate';
 import ModernTemplate from './templates/ModernTemplate';
+import NeobrutalistTemplate from './templates/NeobrutalistTemplate';
 import PortfolioTemplate from './templates/PortfolioTemplate';
 import SidebarTemplate from './templates/SidebarTemplate';
 
 const templates = {
-  classic: { label: 'Classic', component: ClassicTemplate },
+  neobrutalist: { label: 'Neobrutalist', component: NeobrutalistTemplate },
   modern: { label: 'Modern', component: ModernTemplate },
+  classic: { label: 'Classic', component: ClassicTemplate },
   minimal: { label: 'Minimal', component: MinimalTemplate },
   creative: { label: 'Creative', component: CreativeTemplate },
   executive: { label: 'Executive', component: ExecutiveTemplate },
@@ -57,6 +60,7 @@ function InfoTooltip({ text }) {
 export default function PreviewPanel() {
   const { resume, dispatch } = useResume();
   const toast = useToast();
+  const navigate = useNavigate();
   const [exporting, setExporting] = useState(false);
   const [zoom, setZoom] = useState(0.6);
   const fileInputRef = useRef(null);
@@ -305,6 +309,12 @@ export default function PreviewPanel() {
         </button>
         <button className="btn btn-ghost btn-sm" onClick={handlePreviewSample} title="Inject a comprehensively dense dummy profile (2 Pages) to test template behavior seamlessly">
           <FiEye size={16} /> Preview Sample
+        </button>
+
+        <div className="toolbar-divider" />
+
+        <button className="btn btn-secondary btn-sm" onClick={() => navigate('/toolkit/cv-checker')} title="Run a full CV & ATS audit on this resume">
+          <FiZap size={16} /> Analyze
         </button>
 
         <button className="btn btn-primary btn-sm export-btn" onClick={handleExport} disabled={exporting} title="Execute high-fidelity off-screen algorithm scaling out native PDF slice extraction completely free">

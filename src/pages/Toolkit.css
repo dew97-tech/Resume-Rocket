@@ -1,81 +1,101 @@
+/* ============================================
+   Neobrutalism Toolkit Styles
+   ============================================ */
+
+.tk-page {
+  padding-bottom: 60px;
+}
+
 .tk-hero {
-  padding-top: 140px;
-  padding-bottom: 40px;
+  padding: 60px 0 30px;
   text-align: center;
 }
 
 .tk-hero-content {
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
-.tk-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 20px;
-  border-radius: var(--md-sys-shape-corner-full);
-  font: var(--md-sys-typescale-label-large);
-  color: var(--md-sys-color-primary);
-  margin-bottom: 24px;
-}
-
-.tk-title {
-  font: var(--md-sys-typescale-display-medium);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  line-height: 1.15;
+.tk-badge-wrap {
   margin-bottom: 16px;
 }
 
+.tk-title {
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+}
+
 .tk-subtitle {
-  font: var(--md-sys-typescale-body-large);
-  color: var(--md-sys-color-on-surface-variant);
-  max-width: 560px;
-  margin: 0 auto;
-  line-height: 1.7;
+  font-size: 1.15rem;
+  color: var(--neo-ink-muted);
+  line-height: 1.6;
 }
 
 .tk-grid-section {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .tk-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 800px;
+  gap: 28px;
+  max-width: 920px;
   margin: 0 auto;
 }
 
 .tk-card {
-  text-align: center;
-  padding: 40px 28px;
+  background: var(--neo-surface-card);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow-lg);
+  border-radius: var(--radius-md);
+  padding: 32px;
   display: flex;
   flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.tk-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--neo-shadow-xl);
+  background: var(--neo-surface);
+}
+
+.tk-card-top {
+  display: flex;
   align-items: center;
-  cursor: pointer;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .tk-card-icon {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--md-sys-shape-corner-large);
-  margin-bottom: 20px;
+  border: var(--neo-border-sm);
+  box-shadow: var(--neo-shadow-xs);
+  border-radius: var(--radius-sm);
+  color: #000000;
 }
 
 .tk-card-title {
-  font: var(--md-sys-typescale-title-large);
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 900;
   margin-bottom: 10px;
+  letter-spacing: -0.02em;
 }
 
 .tk-card-desc {
-  font: var(--md-sys-typescale-body-medium);
-  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.95rem;
+  color: var(--neo-ink-muted);
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   flex-grow: 1;
 }
 
@@ -83,8 +103,11 @@
   width: 100%;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .tk-grid {
     grid-template-columns: 1fr;
+  }
+  .tk-title {
+    font-size: 2.4rem;
   }
 }

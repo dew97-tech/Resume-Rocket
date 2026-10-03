@@ -1,30 +1,75 @@
+/* ============================================
+   Neobrutalism Experience Formatter Styles
+   ============================================ */
+
+.ef-page {
+  padding-top: calc(var(--navbar-height) + 40px);
+  padding-bottom: 80px;
+  min-height: 100vh;
+  background: var(--neo-bg);
+}
+
 .ef-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 0 24px;
 }
 
+/* ======== HERO HEADER ======== */
+.ef-hero-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.ef-hero-badge {
+  margin-bottom: 12px;
+}
+
+.ef-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  margin-bottom: 10px;
+  color: var(--neo-ink);
+}
+
+.ef-hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--neo-ink-muted);
+  max-width: 680px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ======== WIZARD CONTAINER ======== */
 .ef-wizard {
-  padding: 32px;
-  margin-bottom: 24px;
+  padding: 40px;
+  margin-bottom: 36px;
+  background: var(--neo-surface-card);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow-lg);
+  border-radius: var(--radius-md);
 }
 
+/* ======== PROGRESS BAR ======== */
 .ef-progress {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   position: relative;
 }
 
 .ef-progress::before {
   content: '';
   position: absolute;
-  top: 12px;
-  left: 24px;
-  right: 24px;
-  height: 2px;
-  background: var(--md-sys-color-outline-variant);
+  top: 16px;
+  left: 28px;
+  right: 28px;
+  height: 3px;
+  background: var(--neo-border-color);
   z-index: 0;
 }
 
@@ -32,223 +77,303 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
   z-index: 1;
-}
-
-.ef-progress-step.completed {
-  cursor: pointer;
-}
-
-.ef-progress-dot {
-  width: 26px;
-  height: 26px;
-  border-radius: var(--md-sys-shape-corner-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font: var(--md-sys-typescale-label-medium);
-  font-weight: 700;
-  background: var(--md-sys-color-surface-container-high);
-  border: 2px solid var(--md-sys-color-outline-variant);
-  color: var(--md-sys-color-outline);
-  transition: all var(--transition-normal);
-}
-
-.ef-progress-step.active .ef-progress-dot,
-.ef-progress-step.completed .ef-progress-dot {
-  background: var(--md-sys-color-primary);
-  border-color: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-}
-
-.ef-progress-label {
-  font: var(--md-sys-typescale-label-small);
-  color: var(--md-sys-color-outline);
   text-align: center;
 }
 
-.ef-progress-step.active .ef-progress-label,
-.ef-progress-step.completed .ef-progress-label {
-  color: var(--md-sys-color-on-surface);
-  font-weight: 600;
+.ef-progress-dot {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 0.9rem;
+  background: var(--neo-surface);
+  border: var(--neo-border-sm);
+  box-shadow: var(--neo-shadow-xs);
+  color: var(--neo-ink);
+  transition: transform var(--transition-fast), background var(--transition-fast);
 }
 
-.ef-step {
-  min-height: 120px;
+.ef-progress-step.active .ef-progress-dot {
+  background: var(--neo-yellow);
+  color: #000000;
+  transform: scale(1.12);
+  box-shadow: var(--neo-shadow-sm);
+}
+
+.ef-progress-step.completed .ef-progress-dot {
+  background: var(--neo-green);
+  color: #000000;
+}
+
+.ef-progress-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--neo-ink-muted);
+  text-transform: uppercase;
+  max-width: 100px;
+  line-height: 1.3;
+}
+
+.ef-progress-step.active .ef-progress-label {
+  color: var(--neo-ink);
+  font-weight: 900;
+}
+
+/* ======== STEP CONTENT ======== */
+.ef-step-intro {
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px dashed var(--neo-border-color);
 }
 
 .ef-step-label {
   display: block;
-  font: var(--md-sys-typescale-title-medium);
-  margin-bottom: 4px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.45rem;
+  margin-bottom: 6px;
+  color: var(--neo-ink);
 }
 
 .ef-step-helper {
-  font: var(--md-sys-typescale-body-small);
-  color: var(--md-sys-color-on-surface-variant);
-  margin-bottom: 16px;
+  font-size: 0.98rem;
+  color: var(--neo-ink-muted);
 }
 
-.ef-verb-selector {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.ef-input-wrap {
+  margin-bottom: 28px;
+}
+
+.ef-field-caption {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--neo-ink);
+  margin-bottom: 8px;
+  display: block;
+  letter-spacing: 0.04em;
+}
+
+.ef-main-input {
+  padding: 14px 18px !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+}
+
+.ef-section-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--neo-ink-muted);
+  margin-bottom: 10px;
+  display: block;
+  letter-spacing: 0.04em;
+}
+
+.ef-category-section {
+  margin-bottom: 24px;
 }
 
 .ef-verb-categories {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
 }
 
 .ef-verb-cat-btn {
-  padding: 4px 14px;
-  border-radius: var(--md-sys-shape-corner-full);
-  font: var(--md-sys-typescale-label-small);
-  font-weight: 600;
-  background: var(--md-sys-color-surface-container);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  color: var(--md-sys-color-on-surface-variant);
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 800;
+  border: var(--neo-border-sm);
+  border-radius: var(--radius-sm);
+  background: var(--neo-surface);
+  color: var(--neo-ink);
+  cursor: pointer;
+  box-shadow: var(--neo-shadow-xs);
   transition: all var(--transition-fast);
 }
 
-.ef-verb-cat-btn.active,
 .ef-verb-cat-btn:hover {
-  background: var(--md-sys-color-primary-container);
-  color: var(--md-sys-color-on-primary-container);
-  border-color: var(--md-sys-color-primary);
+  background: var(--neo-surface-dim);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--neo-shadow-sm);
+}
+
+.ef-verb-cat-btn.active {
+  background: var(--neo-cyan);
+  color: #000000;
+  box-shadow: var(--neo-shadow-sm);
+  transform: translate(-1px, -1px);
+}
+
+.ef-suggestions-section {
+  margin-bottom: 24px;
 }
 
 .ef-verb-suggestions {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
+  padding: 18px;
+  background: var(--neo-surface-dim);
+  border: var(--neo-border-sm);
+  box-shadow: var(--neo-shadow-xs);
+  border-radius: var(--radius-sm);
 }
 
 .ef-verb-chip {
-  padding: 6px 14px;
-  border-radius: var(--md-sys-shape-corner-full);
-  font: var(--md-sys-typescale-label-small);
-  background: var(--md-sys-color-surface-container);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  color: var(--md-sys-color-on-surface-variant);
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  border: var(--neo-border-sm);
+  border-radius: var(--radius-sm);
+  background: var(--neo-surface);
+  color: var(--neo-ink);
+  cursor: pointer;
+  box-shadow: var(--neo-shadow-xs);
   transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
 }
 
-.ef-verb-chip:hover,
+.ef-verb-chip:hover {
+  background: var(--neo-yellow);
+  color: #000000;
+  transform: translate(-1px, -1px);
+  box-shadow: var(--neo-shadow-sm);
+}
+
 .ef-verb-chip.selected {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  border-color: var(--md-sys-color-primary);
+  background: var(--neo-yellow);
+  color: #000000;
+  box-shadow: var(--neo-shadow-sm);
+  border-width: var(--neo-border-width);
 }
 
+/* ======== WIZARD ACTIONS ======== */
 .ef-wizard-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
+  align-items: center;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: var(--neo-border-dashed);
+}
+
+/* ======== OUTPUTS & PREVIEW ======== */
+.ef-section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: var(--neo-ink);
 }
 
 .ef-outputs {
-  margin-bottom: 24px;
-}
-
-.ef-outputs h3,
-.ef-session h3 {
-  font: var(--md-sys-typescale-title-medium);
-  margin-bottom: 12px;
+  margin-bottom: 40px;
 }
 
 .ef-output-grid {
   display: grid;
-  gap: 12px;
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 
 .ef-output-card {
-  padding: 16px 20px;
+  padding: 24px;
+  background: var(--neo-surface-card);
 }
 
 .ef-output-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.ef-output-name {
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: var(--md-sys-color-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  margin-bottom: 12px;
 }
 
 .ef-output-text {
-  font: var(--md-sys-typescale-body-medium);
-  line-height: 1.6;
-  color: var(--md-sys-color-on-surface);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.7;
+  color: var(--neo-ink);
+  background: var(--neo-surface-dim);
+  padding: 16px;
+  border: var(--neo-border-sm);
+  border-radius: var(--radius-sm);
+}
+
+/* ======== SAVED BULLETS SESSION ======== */
+.ef-session {
+  margin-top: 40px;
 }
 
 .ef-session-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
 .ef-session-entry {
-  padding: 16px 20px;
+  padding: 24px;
 }
 
 .ef-session-entry-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px dashed var(--neo-border-color);
 }
 
 .ef-session-entry-label {
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.15rem;
 }
 
 .ef-session-entry-actions {
   display: flex;
-  gap: 4px;
+  gap: 10px;
 }
 
 .ef-session-bullets {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .ef-session-bullet {
-  padding: 8px 12px;
-  border-radius: var(--md-sys-shape-corner-small);
-  background: var(--md-sys-color-surface-container);
+  padding: 12px 16px;
+  background: var(--neo-surface-dim);
+  border: var(--neo-border-sm);
+  border-radius: var(--radius-sm);
 }
 
 .ef-session-bullet-label {
-  font: var(--md-sys-typescale-label-small);
-  font-weight: 700;
-  color: var(--md-sys-color-primary);
-  margin-bottom: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  color: var(--neo-ink-muted);
+  margin-bottom: 4px;
 }
 
-.ef-session-bullet p {
-  font: var(--md-sys-typescale-body-small);
-  line-height: 1.5;
-  color: var(--md-sys-color-on-surface-variant);
-}
-
-@media (max-width: 640px) {
-  .ef-wizard {
-    padding: 20px;
-  }
+@media (max-width: 768px) {
   .ef-progress-label {
     display: none;
+  }
+  .ef-wizard {
+    padding: 24px 16px;
   }
 }

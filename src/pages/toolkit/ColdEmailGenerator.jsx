@@ -60,7 +60,7 @@ export default function ColdEmailGenerator() {
 
           <div className="ce-category-tabs">
             {EMAIL_CATEGORIES.map(cat => <button key={cat.id} className={`ce-cat-tab ${form.category === cat.id ? 'active' : ''}`} onClick={() => update('category', cat.id)}>
-                <span>{cat.icon}</span> {cat.label}
+                {cat.label}
               </button>)}
           </div>
 
@@ -111,9 +111,19 @@ export default function ColdEmailGenerator() {
             </div>
             <div className="form-group">
               <label>Tone</label>
-              <select className="glass-input" value={form.tone} onChange={e => update('tone', e.target.value)}>
-                {EMAIL_TONES.map(t => <option key={t.value} value={t.value}>{t.icon} {t.label}</option>)}
-              </select>
+              <div className="ce-tone-chips" role="group" aria-label="Tone">
+                {EMAIL_TONES.map(t => (
+                  <button
+                    type="button"
+                    key={t.value}
+                    className={`ce-tone-chip neo-lift${form.tone === t.value ? ' selected' : ''}`}
+                    aria-pressed={form.tone === t.value}
+                    onClick={() => update('tone', t.value)}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <motion.button className="btn btn-primary btn-lg" style={{ width: '100%', marginTop: 8 }} onClick={handleGenerate} whileTap={{ scale: 0.98 }}>

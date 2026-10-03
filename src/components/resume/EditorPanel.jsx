@@ -2,8 +2,9 @@ import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from 
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiAward, FiBook, FiBriefcase, FiChevronDown, FiFileText, FiFolder, FiGlobe, FiPlus, FiStar, FiTrash2, FiUser } from 'react-icons/fi';
+import { useSearchParams } from 'react-router-dom';
 import { useResume } from '../../contexts/ResumeContext';
 import { useToast } from '../../contexts/ToastContext';
 const sectionMeta = {
@@ -46,7 +47,17 @@ export default function EditorPanel() {
     dispatch
   } = useResume();
   const toast = useToast();
-  const [openSections, setOpenSections] = useState(['personalInfo']);
+  const [searchParams] = useSearchParams();
+  const focusSection = searchParams.get('section');
+  const [openSections, setOpenSections] = useState(focusSection ? [focusSection] : ['personalInfo']);
+
+  useEffect(() => {
+    if (!focusSection) return;
+    const timer = setTimeout(() => {
+      document.getElementById(`editor-section-${focusSection}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [focusSection]);
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }));
   const toggleSection = key => {
@@ -94,7 +105,7 @@ function SortableSection({ sectionKey, meta, isOpen, onToggle, children }) {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-  return <div className="editor-section" ref={setNodeRef} style={style}>
+  return <div className="editor-section" id={`editor-section-${sectionKey}`} ref={setNodeRef} style={style}>
       <div className={`section-header ${isOpen ? 'open' : ''}`} role="button" tabIndex={0} onKeyDown={e => e.key === 'Enter' && onToggle()}>
         <div className="section-header-left" onClick={onToggle} style={{ flex: 1, cursor: 'pointer' }}>
           <span className="drag-handle" {...attributes} {...listeners} title="Drag to reorder" onClick={e => e.stopPropagation()}>⠿</span>

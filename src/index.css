@@ -1,225 +1,167 @@
 /* ============================================
-   Resume Rocket — Material Design 3 Token System
+   Resume Rocket — Neobrutalism Design System (TypeUI)
    ============================================ */
 
-/* ---------- M3 Design Tokens (Dark — default) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
 :root {
-  /* — Primary tonal group — */
-  --md-sys-color-primary: #C9B8FF;
-  --md-sys-color-on-primary: #31005A;
-  --md-sys-color-primary-container: #4A2080;
-  --md-sys-color-on-primary-container: #E9DDFF;
+  /* ---------- Neobrutalism Foundations (Source of Truth) ---------- */
+  --neo-bg: #FBFBF9;
+  --neo-surface: #FFFFFF;
+  --neo-surface-card: var(--neo-bg);
+  --neo-surface-dim: #F5EFE6;
+  --neo-surface-container: var(--neo-bg);
+  --neo-surface-container-low: #F8F5E9;
+  --neo-surface-container-high: #FFFFFF;
+  --neo-ink: #1C293C;
+  --neo-ink-muted: rgba(28, 41, 60, 0.72);
+  --neo-border-color: #1C293C;
+  --neo-border-width: 3px;
+  --neo-border: var(--neo-border-width) solid var(--neo-border-color);
+  --neo-border-sm: 2px solid var(--neo-border-color);
+  --neo-border-dashed: 3px dashed var(--neo-border-color);
 
-  /* — Secondary tonal group — */
-  --md-sys-color-secondary: #CCC2DC;
-  --md-sys-color-on-secondary: #332D41;
-  --md-sys-color-secondary-container: #4A4458;
-  --md-sys-color-on-secondary-container: #E8DEF8;
+  /* Hard Shadows (Zero Blur, Geometric Offsets) */
+  --neo-shadow-xs: 2px 2px 0px var(--neo-border-color);
+  --neo-shadow-sm: 3px 3px 0px var(--neo-border-color);
+  --neo-shadow: 4px 4px 0px var(--neo-border-color);
+  --neo-shadow-lg: 6px 6px 0px var(--neo-border-color);
+  --neo-shadow-xl: 8px 8px 0px var(--neo-border-color);
+  --neo-shadow-hover: 5px 5px 0px var(--neo-border-color);
+  --neo-shadow-active: 1px 1px 0px var(--neo-border-color);
 
-  /* — Tertiary tonal group — */
-  --md-sys-color-tertiary: #EFB8C8;
-  --md-sys-color-on-tertiary: #4A2532;
-  --md-sys-color-tertiary-container: #633B48;
-  --md-sys-color-on-tertiary-container: #FFD8E4;
+  /* Signature Saturated Neobrutalism Accents */
+  --neo-yellow: #FFE600;
+  --neo-cyan: #00F0FF;
+  --neo-pink: #FF66C4;
+  --neo-green: #A3E635;
+  --neo-orange: #FB923C;
+  --neo-purple: #C4B5FD;
+  --neo-red: #FF4D4D;
 
-  /* — Error group — */
-  --md-sys-color-error: #FFB4AB;
-  --md-sys-color-on-error: #690005;
-  --md-sys-color-error-container: #93000A;
-  --md-sys-color-on-error-container: #FFB4AB;
+  /* Active Theme Primary */
+  --neo-primary: var(--neo-yellow);
+  --neo-primary-fg: #000000;
 
-  /* — Surface / Background — */
-  --md-sys-color-surface: #1C1B1F;
-  --md-sys-color-on-surface: #E6E1E5;
-  --md-sys-color-on-surface-variant: #CAC4D0;
+  /* ---------- TypeUI Compatibility Aliases ----------
+     Resolve through --neo-* so every consumer stays theme-aware
+     (dark mode + runtime accent) automatically. */
+  --typeui-primary: var(--neo-primary);
+  --typeui-secondary: #432DD7;
+  --typeui-success: #16A34A;
+  --typeui-warning: #D97706;
+  --typeui-danger: #DC2626;
+  --typeui-surface: var(--neo-bg);
+  --typeui-text: var(--neo-ink);
+  --typeui-text-muted: var(--neo-ink-muted);
+  --typeui-border: var(--neo-border);
+  --typeui-border-sm: var(--neo-border-sm);
+  --typeui-shadow: var(--neo-shadow);
+  --typeui-shadow-sm: var(--neo-shadow-sm);
+  --typeui-shadow-xs: var(--neo-shadow-xs);
+  --typeui-shadow-hover: var(--neo-shadow-hover);
+  --typeui-shadow-active: var(--neo-shadow-active);
 
-  /* — Surface containers (tonal elevation) — */
-  --md-sys-color-surface-dim: #141218;
-  --md-sys-color-surface-bright: #3B383E;
-  --md-sys-color-surface-container-lowest: #0F0D13;
-  --md-sys-color-surface-container-low: #1D1B20;
-  --md-sys-color-surface-container: #211F26;
-  --md-sys-color-surface-container-high: #2B2930;
-  --md-sys-color-surface-container-highest: #36343B;
-
-  /* — Inverse — */
-  --md-sys-color-inverse-surface: #E6E1E5;
-  --md-sys-color-inverse-on-surface: #313033;
-  --md-sys-color-inverse-primary: #6750A4;
-
-  /* — Outline — */
-  --md-sys-color-outline: #938F99;
-  --md-sys-color-outline-variant: #49454F;
-
-  /* — Scrim & Shadow — */
-  --md-sys-color-scrim: #000000;
-  --md-sys-color-shadow: #000000;
-
-  /* — Extended semantic colors — */
-  --md-sys-color-success: #34d399;
-  --md-sys-color-on-success: #003919;
-  --md-sys-color-warning: #fbbf24;
-  --md-sys-color-on-warning: #3b2900;
-  --md-sys-color-info: #60a5fa;
-  --md-sys-color-on-info: #00315c;
-
-  /* — State layers — */
-  --md-sys-state-hover-opacity: 0.08;
-  --md-sys-state-focus-opacity: 0.12;
-  --md-sys-state-pressed-opacity: 0.12;
-  --md-sys-state-dragged-opacity: 0.16;
-
-  /* — Shape scale — */
-  --md-sys-shape-corner-none: 0px;
-  --md-sys-shape-corner-extra-small: 4px;
-  --md-sys-shape-corner-small: 8px;
-  --md-sys-shape-corner-medium: 12px;
-  --md-sys-shape-corner-large: 16px;
-  --md-sys-shape-corner-extra-large: 28px;
-  --md-sys-shape-corner-full: 9999px;
-
-  /* — Typography scale — */
-  --md-sys-typescale-display-large: 800 57px/64px 'Inter', sans-serif;
-  --md-sys-typescale-display-medium: 800 45px/52px 'Inter', sans-serif;
-  --md-sys-typescale-display-small: 800 36px/44px 'Inter', sans-serif;
-  --md-sys-typescale-headline-large: 700 32px/40px 'Inter', sans-serif;
-  --md-sys-typescale-headline-medium: 700 28px/36px 'Inter', sans-serif;
-  --md-sys-typescale-headline-small: 700 24px/32px 'Inter', sans-serif;
-  --md-sys-typescale-title-large: 600 22px/28px 'Inter', sans-serif;
-  --md-sys-typescale-title-medium: 600 16px/24px 'Inter', sans-serif;
-  --md-sys-typescale-title-small: 500 14px/20px 'Inter', sans-serif;
-  --md-sys-typescale-body-large: 400 16px/24px 'Inter', sans-serif;
-  --md-sys-typescale-body-medium: 400 14px/20px 'Inter', sans-serif;
-  --md-sys-typescale-body-small: 400 12px/16px 'Inter', sans-serif;
-  --md-sys-typescale-label-large: 500 14px/20px 'Inter', sans-serif;
-  --md-sys-typescale-label-medium: 500 12px/16px 'Inter', sans-serif;
-  --md-sys-typescale-label-small: 500 11px/16px 'Inter', sans-serif;
-
-  /* — Motion tokens — */
-  --md-sys-motion-duration-short1: 50ms;
-  --md-sys-motion-duration-short2: 100ms;
-  --md-sys-motion-duration-medium1: 250ms;
-  --md-sys-motion-duration-medium2: 400ms;
-  --md-sys-motion-duration-long1: 500ms;
-  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
-  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
-  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
-  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
-
-  /* ===== BACKWARD-COMPAT ALIASES ===== */
-  /* These map old token names → M3 tokens so existing CSS works during migration */
-  --bg-primary: var(--md-sys-color-surface);
-  --bg-secondary: var(--md-sys-color-surface-container-low);
-  --bg-tertiary: var(--md-sys-color-surface-container);
-  --text-primary: var(--md-sys-color-on-surface);
-  --text-secondary: var(--md-sys-color-on-surface-variant);
-  --text-muted: var(--md-sys-color-outline);
-  --accent: var(--md-sys-color-primary);
-  --accent-light: var(--md-sys-color-primary);
-  --accent-dark: var(--md-sys-color-inverse-primary);
-  --accent-glow: rgba(var(--md-sys-color-primary-rgb, 124, 92, 252), 0.25);
-  --gradient-start: var(--md-sys-color-primary);
-  --gradient-mid: var(--md-sys-color-secondary-container);
-  --gradient-end: var(--md-sys-color-primary-container);
-  --glass-bg: rgba(33, 31, 38, 0.6);
-  --glass-bg-hover: rgba(43, 41, 48, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.16);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-  --glass-inner-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --success: var(--md-sys-color-success);
-  --error: var(--md-sys-color-error);
-  --warning: var(--md-sys-color-warning);
-  --info: var(--md-sys-color-info);
-  --radius-sm: var(--md-sys-shape-corner-small);
-  --radius-md: var(--md-sys-shape-corner-medium);
-  --radius-lg: var(--md-sys-shape-corner-large);
-  --radius-xl: var(--md-sys-shape-corner-extra-large);
-  --radius-full: var(--md-sys-shape-corner-full);
-  --blur-sm: 8px;
-  --blur-md: 16px;
-  --blur-lg: 24px;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Inter', -apple-system, sans-serif;
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --transition-fast: 0.15s var(--md-sys-motion-easing-standard);
-  --transition-normal: 0.3s var(--md-sys-motion-easing-standard);
-  --transition-slow: 0.5s var(--md-sys-motion-easing-standard);
-  --navbar-height: 72px;
+
+  /* Layout */
+  --navbar-height: 76px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-full: 9999px;
+
+  /* ---------- Compatibility Aliases ---------- */
+  --bg-primary: var(--neo-bg);
+  --bg-secondary: var(--neo-surface-card);
+  --bg-tertiary: var(--neo-surface-dim);
+  --text-primary: var(--neo-ink);
+  --text-secondary: var(--neo-ink-muted);
+  --text-muted: var(--neo-ink-muted);
+  --accent: var(--neo-primary);
+  --accent-light: var(--neo-cyan);
+  --accent-dark: var(--neo-ink);
+  --accent-glow: rgba(0, 0, 0, 0.15);
+  --gradient-start: var(--neo-primary);
+  --gradient-mid: var(--neo-pink);
+  --gradient-end: var(--neo-cyan);
+  --glass-bg: var(--neo-surface);
+  --glass-bg-hover: var(--neo-surface);
+  --glass-border: var(--neo-border-color);
+  --glass-border-hover: var(--neo-border-color);
+  --glass-shadow: var(--neo-shadow);
+  --glass-inner-shadow: none;
+
+  --md-sys-color-primary: var(--neo-primary);
+  --md-sys-color-on-primary: var(--neo-primary-fg);
+  --md-sys-color-surface: var(--neo-bg);
+  --md-sys-color-on-surface: var(--neo-ink);
+  --md-sys-color-on-surface-variant: var(--neo-ink-muted);
+  --md-sys-color-surface-container-low: var(--neo-surface-container-low);
+  --md-sys-color-surface-container: var(--neo-surface-container);
+  --md-sys-color-surface-container-high: var(--neo-surface-container-high);
+  --md-sys-color-outline: var(--neo-border-color);
+  --md-sys-color-outline-variant: var(--neo-border-color);
+
+  --transition-fast: 0.1s ease;
+  --transition-normal: 0.15s ease;
+  --transition-slow: 0.3s ease;
 }
 
-/* ---------- M3 Design Tokens (Light theme) ---------- */
-[data-theme="light"] {
-  /* — Primary — */
-  --md-sys-color-primary: #6750A4;
-  --md-sys-color-on-primary: #FFFFFF;
-  --md-sys-color-primary-container: #EADDFF;
-  --md-sys-color-on-primary-container: #21005E;
+/* ---------- Dark Mode (Cyber Brutalism) ---------- */
+[data-theme='dark'] {
+  --neo-bg: #121214;
+  --neo-surface: #1C1C22;
+  --neo-surface-card: #24242E;
+  --neo-surface-dim: #18181E;
+  --neo-surface-container: #1C1C22;
+  --neo-surface-container-low: #16161B;
+  --neo-surface-container-high: #2C2C38;
+  
+  --neo-ink: #FFFFFF;
+  --neo-ink-muted: #A1A1AA;
+  --neo-border-color: #FFFFFF;
+  --neo-border: var(--neo-border-width) solid var(--neo-border-color);
+  --neo-border-sm: 2px solid var(--neo-border-color);
+  --neo-border-dashed: 3px dashed var(--neo-border-color);
 
-  /* — Secondary — */
-  --md-sys-color-secondary: #625B71;
-  --md-sys-color-on-secondary: #FFFFFF;
-  --md-sys-color-secondary-container: #E8DEF8;
-  --md-sys-color-on-secondary-container: #1E192B;
+  --neo-shadow-xs: 2px 2px 0px #FFFFFF;
+  --neo-shadow-sm: 3px 3px 0px #FFFFFF;
+  --neo-shadow: 4px 4px 0px #FFFFFF;
+  --neo-shadow-lg: 6px 6px 0px #FFFFFF;
+  --neo-shadow-xl: 8px 8px 0px #FFFFFF;
+  --neo-shadow-hover: 5px 5px 0px #FFFFFF;
+  --neo-shadow-active: 1px 1px 0px #FFFFFF;
 
-  /* — Tertiary — */
-  --md-sys-color-tertiary: #7D5260;
-  --md-sys-color-on-tertiary: #FFFFFF;
-  --md-sys-color-tertiary-container: #FFD8E4;
-  --md-sys-color-on-tertiary-container: #370B1E;
+  --neo-primary-fg: #000000;
 
-  /* — Error — */
-  --md-sys-color-error: #B3261E;
-  --md-sys-color-on-error: #FFFFFF;
-  --md-sys-color-error-container: #F9DEDC;
-  --md-sys-color-on-error-container: #410E0B;
+  --bg-primary: var(--neo-bg);
+  --bg-secondary: var(--neo-surface-card);
+  --bg-tertiary: var(--neo-surface-dim);
+  --text-primary: var(--neo-ink);
+  --text-secondary: var(--neo-ink-muted);
+  --text-muted: var(--neo-ink-muted);
+  --glass-bg: var(--neo-surface);
+  --glass-border: #FFFFFF;
+  --glass-shadow: var(--neo-shadow);
 
-  /* — Surface / Background — */
-  --md-sys-color-surface: #FFFBFE;
-  --md-sys-color-on-surface: #1C1B1F;
-  --md-sys-color-on-surface-variant: #49454F;
-
-  /* — Surface containers — */
-  --md-sys-color-surface-dim: #DED8E1;
-  --md-sys-color-surface-bright: #FFFBFE;
-  --md-sys-color-surface-container-lowest: #FFFFFF;
-  --md-sys-color-surface-container-low: #F7F2FA;
-  --md-sys-color-surface-container: #F3EDF7;
-  --md-sys-color-surface-container-high: #ECE6F0;
-  --md-sys-color-surface-container-highest: #E6E0E9;
-
-  /* — Inverse — */
-  --md-sys-color-inverse-surface: #313033;
-  --md-sys-color-inverse-on-surface: #F4EFF4;
-  --md-sys-color-inverse-primary: #C9B8FF;
-
-  /* — Outline — */
-  --md-sys-color-outline: #79747E;
-  --md-sys-color-outline-variant: #CAC4D0;
-
-  /* — Scrim & Shadow — */
-  --md-sys-color-scrim: #000000;
-  --md-sys-color-shadow: #000000;
-
-  /* — Extended — */
-  --md-sys-color-success: #1B873A;
-  --md-sys-color-on-success: #FFFFFF;
-  --md-sys-color-warning: #C08800;
-  --md-sys-color-on-warning: #FFFFFF;
-  --md-sys-color-info: #2563EB;
-  --md-sys-color-on-info: #FFFFFF;
-
-  /* — Glassmorphism overrides — */
-  --glass-bg: rgba(255, 255, 255, 0.35);
-  --glass-bg-hover: rgba(255, 255, 255, 0.5);
-  --glass-border: rgba(0, 0, 0, 0.06);
-  --glass-border-hover: rgba(0, 0, 0, 0.12);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --glass-inner-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  --accent-glow: rgba(103, 80, 164, 0.18);
+  --md-sys-color-primary: var(--neo-primary);
+  --md-sys-color-on-primary: var(--neo-primary-fg);
+  --md-sys-color-surface: var(--neo-bg);
+  --md-sys-color-on-surface: var(--neo-ink);
+  --md-sys-color-on-surface-variant: var(--neo-ink-muted);
+  --md-sys-color-surface-container-low: var(--neo-surface-container-low);
+  --md-sys-color-surface-container: var(--neo-surface-container);
+  --md-sys-color-surface-container-high: var(--neo-surface-container-high);
+  --md-sys-color-outline: #FFFFFF;
+  --md-sys-color-outline-variant: #FFFFFF;
 }
 
-/* ---------- Reset & Base ---------- */
+/* ---------- Global Reset & Base ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -229,18 +171,22 @@
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: var(--font-sans);
-  background: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
-  line-height: 1.6;
+  background: var(--neo-bg);
+  color: var(--neo-ink);
+  line-height: 1.5;
   min-height: 100vh;
-  transition: background var(--md-sys-motion-duration-long1) var(--md-sys-motion-easing-standard),
-              color var(--md-sys-motion-duration-long1) var(--md-sys-motion-easing-standard);
   overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--neo-ink);
 }
 
 a {
@@ -248,389 +194,366 @@ a {
   text-decoration: none;
 }
 
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  background: none;
-  color: inherit;
-}
-
-input, textarea {
-  font-family: inherit;
-  color: inherit;
-  border: none;
-  outline: none;
-  background: none;
-}
-
-select {
-  font-family: inherit;
-  color: var(--md-sys-color-on-surface);
-  border: none;
-  outline: none;
-  background-color: var(--md-sys-color-surface-container);
-  cursor: pointer;
-}
-
-[data-theme="light"] select {
-  background-color: var(--md-sys-color-surface-container-lowest);
-  color: var(--md-sys-color-on-surface);
-}
-
-select option {
-  background-color: var(--md-sys-color-surface-container-low);
-  color: var(--md-sys-color-on-surface);
-  padding: 8px 12px;
-}
-
-[data-theme="light"] select option {
-  background-color: var(--md-sys-color-surface-container-lowest);
-  color: var(--md-sys-color-on-surface);
-}
-
-select:focus {
-  border-color: var(--md-sys-color-primary);
-  box-shadow: 0 0 0 3px var(--accent-glow);
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
 ul, ol {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* ---------- Scrollbar ---------- */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--md-sys-color-outline);
-  border-radius: var(--md-sys-shape-corner-full);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--md-sys-color-on-surface-variant);
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
 }
 
-/* ---------- Surface Utilities (M3 tonal elevation) ---------- */
-.surface-lowest  { background: var(--md-sys-color-surface-container-lowest); }
-.surface-low     { background: var(--md-sys-color-surface-container-low); }
-.surface         { background: var(--md-sys-color-surface-container); }
-.surface-high    { background: var(--md-sys-color-surface-container-high); }
-.surface-highest { background: var(--md-sys-color-surface-container-highest); }
-
-/* ============================================
-   Glassmorphism Design System
-   Pillars: transparency | backdrop-blur | defined border | layered hierarchy
-   ============================================ */
-
-/* --- Base Glass (small/constrained elements — safe for backdrop-filter) --- */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--blur-md));
-  -webkit-backdrop-filter: blur(var(--blur-md));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow), var(--glass-inner-shadow);
+input, textarea, select {
+  font-family: var(--font-sans);
+  color: var(--neo-ink);
+  outline: none;
 }
 
-.glass:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
+/* ---------- Accessibility: Focus Visibility (Keyboard Nav) ---------- */
+:where(a, button, [role='button'], input, textarea, select, summary):focus-visible {
+  outline: 3px solid var(--neo-primary);
+  outline-offset: 2px;
 }
 
-/* --- Glass Card (premium frosted panels) --- */
-.glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--blur-md));
-  -webkit-backdrop-filter: blur(var(--blur-md));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow), var(--glass-inner-shadow);
-  border-radius: var(--md-sys-shape-corner-large);
+/* ---------- Accessibility: Reduced Motion Policy ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Neobrutalism Core Components ---------- */
+
+/* Boxes & Cards */
+.neo-box, .neo-card {
+  background: var(--neo-surface-card);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+  border-radius: var(--radius-md);
   padding: 24px;
-  transition: all var(--transition-normal);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.neo-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--neo-shadow-lg);
+}
+
+/* Re-styled legacy .glass & .glass-card for Neobrutalism */
+.glass {
+  background: var(--neo-surface) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: var(--neo-border) !important;
+  box-shadow: var(--neo-shadow) !important;
+}
+
+.glass-card {
+  background: var(--neo-surface-card) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: var(--neo-border) !important;
+  box-shadow: var(--neo-shadow) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 24px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast) !important;
 }
 
 .glass-card:hover {
-  background: var(--glass-bg-hover);
-  border-color: var(--glass-border-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--glass-shadow), var(--glass-inner-shadow), 0 0 40px var(--accent-glow);
+  transform: translate(-2px, -2px) !important;
+  box-shadow: var(--neo-shadow-lg) !important;
 }
 
-/* --- Glass Input (frosted fields with enhanced readability) --- */
-.glass-input {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--blur-sm));
-  -webkit-backdrop-filter: blur(var(--blur-sm));
-  border: 1px solid var(--glass-border);
-  border-radius: var(--md-sys-shape-corner-medium);
-  padding: 12px 16px;
-  font-size: 0.95rem;
-  color: var(--md-sys-color-on-surface);
-  transition: all var(--transition-normal);
+/* Inputs & Form Controls */
+.neo-input, .glass-input {
+  background: var(--neo-surface) !important;
+  border: var(--neo-border) !important;
+  box-shadow: var(--neo-shadow-xs) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem !important;
+  color: var(--neo-ink) !important;
   width: 100%;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
-.glass-input:focus {
-  border-color: var(--md-sys-color-primary);
-  box-shadow: var(--glass-inner-shadow), 0 0 0 3px var(--accent-glow);
-  background: var(--glass-bg-hover);
+.neo-input:focus, .glass-input:focus {
+  box-shadow: var(--neo-shadow) !important;
+  transform: translate(-1px, -1px);
 }
 
-.glass-input::placeholder {
-  color: var(--md-sys-color-outline);
+.neo-input::placeholder, .glass-input::placeholder {
+  color: var(--neo-ink-muted);
 }
 
-/* --- Performance safeguard: disable backdrop-filter on large scrolling surfaces --- */
-.page-wrapper,
-.section,
-.container,
-.hero,
-.features-grid,
-.pricing-cards {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+select.neo-input, select.glass-input {
+  cursor: pointer;
+  background-color: var(--neo-surface);
 }
 
-/* ---------- Button Variants ---------- */
-.btn {
+/* Tactile Neobrutalism Buttons */
+.btn, .neo-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 28px;
-  font: var(--md-sys-typescale-label-large);
-  border-radius: var(--md-sys-shape-corner-full);
-  transition: all var(--transition-normal);
-  position: relative;
-  overflow: hidden;
-  min-height: 48px;
+  padding: 12px 24px;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+  border-radius: var(--radius-sm);
+  background: var(--neo-surface);
+  color: var(--neo-ink);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  user-select: none;
 }
 
-/* M3 state layer */
-.btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: currentColor;
-  opacity: 0;
-  transition: opacity var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-  pointer-events: none;
-  border-radius: inherit;
-}
-.btn:hover::after { opacity: var(--md-sys-state-hover-opacity); }
-.btn:focus-visible::after { opacity: var(--md-sys-state-focus-opacity); }
-.btn:active::after { opacity: var(--md-sys-state-pressed-opacity); }
-
-.btn-primary {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  box-shadow: none;
+.btn *, .neo-btn * {
+  color: inherit;
 }
 
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+.btn:hover, .neo-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--neo-shadow-hover);
 }
 
-.btn-primary:active {
-  transform: translateY(0);
+.btn:active, .neo-btn:active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: var(--neo-shadow-active) !important;
 }
 
-.btn-secondary {
-  background: var(--md-sys-color-surface-container-high);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  color: var(--md-sys-color-on-surface);
+.btn-primary, .neo-btn-primary {
+  background: var(--neo-primary) !important;
+  color: var(--neo-primary-fg) !important;
 }
 
-.btn-secondary:hover {
-  background: var(--md-sys-color-surface-container-highest);
-  border-color: var(--md-sys-color-outline);
+.btn-dark, .neo-btn-dark {
+  background: #000000 !important;
+  color: #FFFFFF !important;
+  border-color: #000000 !important;
 }
 
-.btn-ghost {
-  color: var(--md-sys-color-on-surface-variant);
-  padding: 8px 16px;
+.btn-secondary, .neo-btn-secondary {
+  background: var(--neo-surface) !important;
+  color: var(--neo-ink) !important;
 }
 
-.btn-ghost:hover {
-  color: var(--md-sys-color-on-surface);
-  background: var(--md-sys-color-surface-container);
+.btn-accent, .neo-btn-cyan {
+  background: var(--neo-cyan) !important;
+  color: #000000 !important;
 }
 
-.btn-sm {
+.neo-btn-pink {
+  background: var(--neo-pink) !important;
+  color: #000000 !important;
+}
+
+.neo-btn-green {
+  background: var(--neo-green) !important;
+  color: #000000 !important;
+}
+
+.neo-btn-orange {
+  background: var(--neo-orange) !important;
+  color: #000000 !important;
+}
+
+.btn-danger, .neo-btn-danger {
+  background: var(--neo-red) !important;
+  color: #FFFFFF !important;
+}
+
+.btn-sm, .neo-btn-sm {
   padding: 8px 16px;
   font-size: 0.85rem;
-  min-height: 36px;
+  box-shadow: var(--neo-shadow-xs);
 }
 
-.btn-lg {
-  padding: 16px 36px;
-  font-size: 1.05rem;
-  min-height: 56px;
+.btn-sm:hover, .neo-btn-sm:hover {
+  box-shadow: var(--neo-shadow-sm);
 }
 
-/* ---------- Gradient Text ---------- */
-.gradient-text {
-  background: linear-gradient(135deg,
-    var(--md-sys-color-primary),
-    var(--md-sys-color-tertiary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ---------- Shared Tactile Hover Utilities ----------
+   Compose with any element to get the canonical neobrutalism motion:
+   rest = hard shadow, hover = lift + shadow grows, active = press.
+   Element-specific hover (accent fills, colors) stays in its own CSS. */
+.neo-lift {
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast),
+    color var(--transition-fast);
 }
 
-/* ---------- Section Utilities ---------- */
-.section {
-  padding: 100px 0;
-  position: relative;
+.neo-lift:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--neo-shadow-hover);
 }
 
+.neo-lift:active, .neo-press:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--neo-shadow-active);
+}
+
+/* Badges & Stickers */
+.neo-badge, .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: var(--neo-border-sm);
+  box-shadow: var(--neo-shadow-xs);
+  border-radius: var(--radius-sm);
+  background: var(--neo-yellow);
+  color: #000000;
+}
+
+.neo-sticker {
+  display: inline-block;
+  padding: 6px 14px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+  border-radius: var(--radius-sm);
+  background: var(--neo-pink);
+  color: #000000;
+  transform: rotate(-3deg);
+  transition: transform 0.2s ease;
+}
+
+.neo-sticker:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.neo-sticker.rotate-right {
+  transform: rotate(3deg);
+}
+
+.neo-sticker.rotate-right:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+/* Marquee Ticker Tape */
+.neo-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+  border-top: var(--neo-border);
+  border-bottom: var(--neo-border);
+  padding: 12px 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.neo-marquee-inner {
+  display: inline-flex;
+  gap: 32px;
+  animation: neoMarquee 25s linear infinite;
+}
+
+@keyframes neoMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Containers */
 .container {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-.section-title {
-  font: var(--md-sys-typescale-display-small);
-  text-align: center;
-  margin-bottom: 16px;
-}
-
-.section-subtitle {
-  text-align: center;
-  color: var(--md-sys-color-on-surface-variant);
-  font: var(--md-sys-typescale-body-large);
-  max-width: 600px;
-  margin: 0 auto 60px;
-}
-
-/* ---------- Form Groups ---------- */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group label {
-  font: var(--md-sys-typescale-label-medium);
-  color: var(--md-sys-color-on-surface-variant);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* ---------- Grid Helpers ---------- */
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-/* ---------- Toast / Snackbar (M3 style) ---------- */
-.toast-container {
-  position: fixed;
-  top: 90px;
-  right: 24px;
-  z-index: 10000;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.toast {
-  padding: 14px 20px;
-  border-radius: var(--md-sys-shape-corner-medium);
-  font: var(--md-sys-typescale-body-medium);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 280px;
-  background: var(--md-sys-color-inverse-surface);
-  color: var(--md-sys-color-inverse-on-surface);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-}
-
-.toast-success {
-  background: rgba(52, 211, 153, 0.15);
-  border: 1px solid rgba(52, 211, 153, 0.3);
-  color: var(--md-sys-color-success);
-}
-
-.toast-error {
-  background: rgba(255, 180, 171, 0.15);
-  border: 1px solid rgba(255, 180, 171, 0.3);
-  color: var(--md-sys-color-error);
-}
-
-.toast-info {
-  background: rgba(96, 165, 250, 0.15);
-  border: 1px solid rgba(96, 165, 250, 0.3);
-  color: var(--md-sys-color-info);
-}
-
-/* ---------- Skeleton Loader ---------- */
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--md-sys-color-surface-container) 25%,
-    var(--md-sys-color-surface-container-high) 50%,
-    var(--md-sys-color-surface-container) 75%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-shimmer 1.5s ease infinite;
-  border-radius: var(--md-sys-shape-corner-small);
-}
-
-@keyframes skeleton-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* ---------- Page Wrapper ---------- */
 .page-wrapper {
   min-height: 100vh;
   padding-top: var(--navbar-height);
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 768px) {
-  .section {
-    padding: 60px 0;
-  }
-  .section-title {
-    font-size: 2rem;
-  }
-  .grid-2 {
-    grid-template-columns: 1fr;
-  }
-  .grid-3 {
-    grid-template-columns: 1fr;
-  }
-  .container {
-    padding: 0 16px;
-  }
+/* Text styles */
+.gradient-text {
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  color: var(--neo-ink) !important;
+  font-weight: 900;
 }
 
-@media (max-width: 480px) {
-  .section-title {
-    font-size: 1.6rem;
-  }
-  .btn-lg {
-    padding: 14px 28px;
-    font-size: 1rem;
-  }
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
 }
+::-webkit-scrollbar-track {
+  background: var(--neo-bg);
+  border-left: var(--neo-border);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--neo-primary);
+  border: var(--neo-border);
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.9rem;
+  background: var(--neo-surface);
+  color: var(--neo-ink);
+}
+
+.toast-success {
+  background: var(--neo-green) !important;
+  color: #000000 !important;
+}
+
+.toast-error {
+  background: var(--neo-red) !important;
+  color: #FFFFFF !important;
+}
+
+.toast-info {
+  background: var(--neo-cyan) !important;
+  color: #000000 !important;
+}
+

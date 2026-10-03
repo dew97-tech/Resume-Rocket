@@ -1,43 +1,47 @@
-/* ======== ELEGANT RESOURCE PAGES ======== */
+/* ============================================
+   Neobrutalism Resource & Guide Pages
+   ============================================ */
+
 .resource-page {
-  padding: 120px 0 80px;
+  padding: 100px 0 80px;
   min-height: 100vh;
-  background: var(--md-sys-color-surface);
+  background: var(--neo-bg);
 }
 
 .resource-page .container {
-  max-width: 1100px; /* Increased from 800px for dual column */
+  max-width: 1140px;
 }
 
 /* ======== HERO ======== */
 .resource-hero {
   text-align: center;
-  margin-bottom: 60px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  margin-bottom: 50px;
+  padding-bottom: 36px;
+  border-bottom: 3px dashed var(--neo-border-color);
 }
 
 .resource-hero h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
   font-weight: 900;
-  margin-bottom: 20px;
-  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 }
 
 .resource-hero p {
-  color: var(--md-sys-color-on-surface-variant);
-  font: var(--md-sys-typescale-body-large);
-  font-size: 1.2rem;
-  max-width: 700px;
+  color: var(--neo-ink-muted);
+  font-size: 1.15rem;
+  max-width: 720px;
   margin: 0 auto;
-  line-height: 1.8;
+  line-height: 1.7;
 }
 
 /* ======== EDITORIAL LAYOUT ======== */
 .resource-layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 60px;
+  grid-template-columns: 290px 1fr;
+  gap: 48px;
   align-items: start;
 }
 
@@ -48,77 +52,88 @@
   height: fit-content;
   max-height: calc(100vh - 120px);
   overflow-y: auto;
-  padding-right: 20px;
+  padding: 24px;
+  background: var(--neo-surface-card);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow);
+  border-radius: var(--radius-sm);
 }
 
 .toc-title {
-  font: var(--md-sys-typescale-label-large);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 900;
   text-transform: uppercase;
-  color: var(--md-sys-color-outline);
-  letter-spacing: 1px;
-  margin-bottom: 20px;
+  color: var(--neo-ink);
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px dashed var(--neo-border-color);
 }
 
 .toc-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .toc-link {
-  font: var(--md-sys-typescale-body-medium);
-  color: var(--md-sys-color-on-surface-variant);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--neo-ink-muted);
   text-decoration: none;
-  transition: all var(--md-sys-motion-duration-short2) ease;
+  transition: all var(--transition-fast);
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 0;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
 }
 
-.toc-link:hover, .toc-link.active {
-  color: var(--md-sys-color-primary);
-  font-weight: 500;
+.toc-link:hover,
+.toc-link.active {
+  color: #000000;
+  background: var(--neo-yellow);
+  box-shadow: var(--neo-shadow-xs);
   transform: translateX(4px);
 }
 
 /* ======== ARTICLE CONTENT ======== */
 .resource-content {
-  font: var(--md-sys-typescale-body-large);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.8;
-  color: var(--md-sys-color-on-surface);
-  max-width: 750px;
+  color: var(--neo-ink);
+  max-width: 780px;
 }
 
 .resource-section {
-  margin-bottom: 80px;
-  scroll-margin-top: 100px; /* Accounts for fixed headers when linked */
+  margin-bottom: 60px;
+  scroll-margin-top: 100px;
 }
 
-/* Removed border 'cards'. Reading is seamless and borderless now */
 .resource-section h2 {
+  font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 24px;
+  font-weight: 900;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  color: var(--md-sys-color-on-surface);
+  gap: 14px;
   letter-spacing: -0.02em;
 }
 
 .resource-section h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin: 32px 0 16px;
-  color: var(--md-sys-color-on-surface);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 28px 0 14px;
 }
 
 .resource-section p {
-  color: var(--md-sys-color-on-surface-variant);
-  margin-bottom: 24px;
-  font-size: 1.15rem;
+  color: var(--neo-ink-muted);
+  margin-bottom: 20px;
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
 .resource-list {
@@ -128,84 +143,79 @@
 }
 
 .resource-list li {
-  color: var(--md-sys-color-on-surface-variant);
-  margin-bottom: 16px;
+  color: var(--neo-ink);
+  margin-bottom: 14px;
   position: relative;
   padding-left: 32px;
+  font-size: 1rem;
 }
 
 .resource-list li::before {
   content: '✓';
   position: absolute;
   left: 0;
-  color: var(--md-sys-color-primary);
+  color: #000000;
+  background: var(--neo-green);
+  border: var(--neo-border-sm);
+  border-radius: 2px;
+  font-size: 0.75rem;
   font-weight: 900;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.resource-list li strong {
-  color: var(--md-sys-color-on-surface);
-}
-
-/* ======== HIGHLIGHTS / BLOCKQUOTES ======== */
+/* ======== HIGHLIGHTS / CALLOUTS ======== */
 .tip-highlight {
-  background: var(--md-sys-color-surface-container);
-  border-left: 4px solid var(--md-sys-color-primary);
-  padding: 24px 32px;
+  background: var(--neo-surface-card);
+  border: var(--neo-border);
+  border-left: 8px solid var(--neo-primary);
+  box-shadow: var(--neo-shadow);
+  padding: 24px 28px;
   margin: 32px 0;
-  border-radius: 0 var(--md-sys-shape-corner-medium) var(--md-sys-shape-corner-medium) 0;
-  font-style: italic;
-  font-size: 1.1rem;
-  color: var(--md-sys-color-on-surface);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* Subtle depth */
+  border-radius: var(--radius-sm);
+  font-size: 1.05rem;
+  color: var(--neo-ink);
+  line-height: 1.7;
 }
 
 /* ======== CTA TERMINAL ======== */
 .resource-cta {
   text-align: center;
-  margin-top: 80px;
-  padding: 60px 40px;
-  background: linear-gradient(135deg, var(--md-sys-color-surface-container-high), var(--md-sys-color-surface-container));
-  border: 1px solid var(--md-sys-color-outline-variant);
-  border-radius: var(--md-sys-shape-corner-extra-large);
+  margin-top: 60px;
+  padding: 48px 32px;
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow-lg);
+  border-radius: var(--radius-md);
 }
 
 .resource-cta h3 {
-  font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 16px;
-  color: var(--md-sys-color-on-surface);
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+  color: #000000;
 }
 
 .resource-cta p {
-  color: var(--md-sys-color-on-surface-variant);
-  margin-bottom: 32px;
-  font-size: 1.15rem;
+  color: #1f1f1f;
+  margin-bottom: 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
-/* ======== RESPONSIVE ======== */
 @media (max-width: 1024px) {
   .resource-layout {
     grid-template-columns: 1fr;
   }
-  
   .resource-sidebar {
     position: relative;
     top: 0;
     max-height: none;
-    border-bottom: 1px solid var(--md-sys-color-outline-variant);
-    padding-bottom: 32px;
     margin-bottom: 40px;
-  }
-}
-
-@media (max-width: 768px) {
-  .resource-hero h1 {
-    font-size: 2.2rem;
-  }
-  .resource-section h2 {
-    font-size: 1.6rem;
-  }
-  .resource-content {
-    font-size: 1.05rem;
   }
 }

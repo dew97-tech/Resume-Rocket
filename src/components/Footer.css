@@ -1,116 +1,322 @@
-.footer {
-  background: var(--md-sys-color-surface-container-low);
-  border-top: 1px solid var(--md-sys-color-outline-variant);
-  padding: 60px 0 30px;
-  margin-top: 80px;
+/* ===================================================
+   TypeUI Neobrutalism Design System — Footer
+   Tokens: --neo-* (theme-aware, dark-mode safe)
+   Hover recipe: rest = 3px border + hard shadow
+   hover = lift + shadow grows + accent fill
+   active = press into page
+   =================================================== */
+
+.typeui-footer {
+  background: var(--neo-bg);
+  color: var(--neo-ink);
+  border-top: var(--neo-border);
+  margin-top: 96px;
+  width: 100%;
+  font-family: var(--font-sans);
 }
 
+/* Ticker strip sits flush under the footer's top border */
+.footer-marquee {
+  border-top: none;
+  font-size: 1rem;
+}
+
+.footer-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 64px 24px 28px;
+}
+
+/* ---------- 5-Column Grid ---------- */
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 40px;
+  grid-template-columns: 2fr 1fr 1.2fr 1.1fr 1fr;
+  gap: 40px 32px;
+  margin-top: 10px;
+  align-items: start;
 }
 
-.footer-brand {
-  max-width: 300px;
-}
-
-.footer-logo {
+.footer-col {
   display: flex;
+  flex-direction: column;
+}
+
+/* Brand Column */
+.footer-col-brand {
+  gap: 16px;
+}
+
+.footer-brand-link {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--neo-ink);
+  width: fit-content;
+  border-radius: var(--radius-sm);
+  transition: transform var(--transition-fast);
 }
 
-.footer-desc {
-  color: var(--md-sys-color-on-surface-variant);
-  font: var(--md-sys-typescale-body-medium);
-  line-height: 1.6;
+.footer-brand-link:hover {
+  transform: translate(-1px, -1px);
 }
 
-.footer-col h4 {
-  font: var(--md-sys-typescale-label-medium);
+.footer-brand-link:active {
+  transform: translate(1px, 1px);
+}
+
+.footer-brand-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--neo-ink);
+}
+
+.footer-brand-desc {
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--neo-ink-muted);
+  max-width: 320px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.footer-brand-tag {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
   font-weight: 700;
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+  border: var(--neo-border-sm);
+  box-shadow: var(--neo-shadow-xs);
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.02em;
+  transform: rotate(-1deg);
+  transition: transform var(--transition-fast);
+}
+
+.footer-brand-tag:hover {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.footer-cta {
+  align-self: flex-start;
+}
+
+/* Column Headings */
+.footer-heading {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--md-sys-color-outline);
-  margin-bottom: 16px;
+  color: var(--neo-ink);
+  margin: 0 0 20px 0;
+  padding: 0;
 }
 
-.footer-col a {
-  display: block;
-  color: var(--md-sys-color-on-surface-variant);
-  font: var(--md-sys-typescale-body-medium);
-  padding: 4px 0;
-  transition: color var(--md-sys-motion-duration-short2) var(--md-sys-motion-easing-standard);
-}
-
-.footer-col a:hover {
-  color: var(--md-sys-color-on-surface);
-}
-
-.footer-social {
+/* Link List */
+.footer-links {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
   display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 
-.footer-social a {
+.footer-links li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.footer-link {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--neo-ink);
+  opacity: 0.82;
+  text-decoration: none;
+  display: inline-block;
+  padding: 2px 6px;
+  margin-left: -6px;
+  border-radius: var(--radius-xs);
+  transition:
+    transform var(--transition-fast),
+    color var(--transition-fast),
+    background var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.footer-link:hover {
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+  opacity: 1;
+  transform: translateX(4px);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-link:active {
+  transform: translateX(4px) translateY(1px);
+}
+
+/* Social Row (Tactile Neobrutalist Icon Buttons) */
+.footer-social-row {
   display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-social-btn {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--md-sys-shape-corner-full);
-  background: var(--md-sys-color-surface-container);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  transition: all var(--md-sys-motion-duration-medium1) var(--md-sys-motion-easing-standard);
+  background: var(--neo-surface);
+  color: var(--neo-ink);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow-sm);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.footer-social a:hover {
-  background: var(--md-sys-color-primary);
-  color: var(--md-sys-color-on-primary);
-  border-color: var(--md-sys-color-primary);
+/* Motion (lift + press) comes from .neo-lift; only the accent fill lives here */
+.footer-social-btn:hover {
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
 }
 
-.footer-coming-soon {
-  color: var(--md-sys-color-outline);
+/* ---------- Bottom Bar ---------- */
+.footer-bottom-row {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: var(--neo-border-sm);
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.badge-soon {
-  font: var(--md-sys-typescale-label-small);
+.footer-copy {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--neo-ink-muted);
+  margin: 0;
+}
+
+.footer-credit-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 2px 8px;
-  border-radius: var(--md-sys-shape-corner-full);
-  background: var(--md-sys-color-surface-container);
-  border: 1px solid var(--md-sys-color-outline-variant);
-  color: var(--md-sys-color-outline);
+  color: var(--neo-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 1px 4px;
+  border-radius: var(--radius-xs);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
-.footer-bottom {
-  border-top: 1px solid var(--md-sys-color-outline-variant);
-  padding-top: 24px;
-  text-align: center;
-  color: var(--md-sys-color-outline);
-  font: var(--md-sys-typescale-body-small);
+.footer-credit-link:hover {
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+  text-decoration: none;
+  transform: translate(-1px, -1px);
 }
 
-@media (max-width: 768px) {
+.footer-credit-link:active {
+  transform: translate(1px, 1px);
+}
+
+.footer-bottom-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  background: var(--neo-surface);
+  color: var(--neo-ink);
+  border: var(--neo-border-sm);
+  box-shadow: var(--neo-shadow-xs);
+  border-radius: var(--radius-sm);
+}
+
+.footer-top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 800;
+  background: var(--neo-primary);
+  color: var(--neo-primary-fg);
+  border: var(--neo-border);
+  box-shadow: var(--neo-shadow-sm);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+/* ---------- Focus Visibility (Keyboard Nav) ---------- */
+.footer-brand-link:focus-visible,
+.footer-link:focus-visible,
+.footer-social-btn:focus-visible,
+.footer-credit-link:focus-visible,
+.footer-top-btn:focus-visible {
+  outline: 3px solid var(--neo-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 36px;
   }
-  .footer-brand {
-    grid-column: 1 / -1;
+  .footer-col-brand {
+    grid-column: span 2;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
+  .typeui-footer {
+    margin-top: 64px;
+  }
+  .footer-container {
+    padding: 48px 16px 24px;
+  }
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .footer-col-brand {
+    grid-column: span 1;
+  }
+  .footer-brand-desc {
+    max-width: none;
+  }
+  .footer-social-row {
+    flex-wrap: nowrap;
+  }
+  .footer-bottom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 }

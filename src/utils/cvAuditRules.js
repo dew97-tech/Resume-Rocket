@@ -1,3 +1,5 @@
+import { matchJobDescription } from './keywordMatch.js';
+
 export const ACTION_VERBS = [
   'Achieved', 'Accelerated', 'Administered', 'Advised', 'Allocated', 'Analyzed',
   'Architected', 'Automated', 'Built', 'Championed', 'Closed', 'Collaborated',
@@ -28,6 +30,45 @@ export const CATEGORY_WEIGHTS = {
   formatting: 15,
   ats: 10
 };
+
+export function collectResumeText(resume = {}) {
+  const parts = [
+    resume.personalInfo?.fullName || '',
+    resume.personalInfo?.title || '',
+    resume.personalInfo?.summary || '',
+    ...(resume.experience || []).map(e => `${e.position || ''} ${e.company || ''} ${e.description || ''}`),
+    ...(resume.education || []).map(e => `${e.degree || ''} ${e.field || ''} ${e.institution || ''}`),
+    ...(resume.skills || []).flatMap(s => (s.items || '').split(',')),
+    ...(resume.projects || []).map(p => `${p.name || ''} ${p.description || ''}`),
+    ...(resume.certifications || []).map(c => c.name || '')
+  ];
+  return parts.join(' ').replace(/\s+/g, ' ').trim();
+}
+
+function collectDates(resume = {}) {
+  const dates = [];
+  (resume.experience || []).forEach(e => {
+    if (e.startDate) dates.push(e.startDate);
+    if (e.endDate) dates.push(e.endDate);
+  });
+  (resume.education || []).forEach(e => {
+    if (e.startDate) dates.push(e.startDate);
+    if (e.endDate) dates.push(e.endDate);
+  });
+  return dates;
+}
+
+function classifyDate(raw) {
+  const s = (raw || '').trim();
+  if (!s) return null;
+  if (/^(present|current|now|ongoing)$/i.test(s)) return 'present';
+  if (/^\d{4}$/.test(s)) return 'year';
+  if (/^\d{4}[-/]\d{1,2}$/.test(s) || /^\d{1,2}[-/]\d{4}$/.test(s)) return 'numeric';
+  if (/^[A-Za-z]{3,9}\.?\s+'?\d{2,4}$/.test(s)) return 'named';
+  return 'other';
+}
+
+const ATS_HOSTILE_GLYPHS = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}]/u;
 
 function checkContact(resume) {
   const p = resume.personalInfo || {};
@@ -71,13 +112,20 @@ function checkContact(resume) {
     points: p.location && p.location.length < 60 ? 3 : 0
   });
 
+  const allText = collectResumeText(resume).toLowerCase();
+  const legacyFound = BD_LEGACY_FIELDS.filter(f => allText.includes(f.toLowerCase()));
+  const hasContent = allText.length > 0;
   rules.push({
     id: 'contact-bd-legacy',
     category: 'contact',
-    label: 'No BD legacy fields (blood group, religion, etc.)',
-    status: 'pass',
-    message: 'No legacy fields detected.',
-    points: 3
+    label: 'No outdated personal fields (blood group, religion, marital status)',
+    status: !hasContent ? 'warn' : legacyFound.length === 0 ? 'pass' : 'fail',
+    message: !hasContent
+      ? 'Add resume content to scan for outdated personal fields.'
+      : legacyFound.length === 0
+        ? 'No outdated personal fields detected.'
+        : `Remove outdated fields (found: ${legacyFound.slice(0, 3).join(', ')}) — they are not ATS-safe and invite bias.`,
+    points: hasContent && legacyFound.length === 0 ? 3 : 0
   });
 
   const total = rules.reduce((s, r) => s + r.points, 0);
@@ -187,9 +235,13 @@ function checkExperience(resume) {
     id: 'exp-no-generic',
     category: 'experience',
     label: 'No generic descriptions ("responsible for", "duties")',
-    status: !hasEntries || noGeneric ? 'pass' : 'warn',
-    message: noGeneric ? 'Clean descriptions' : 'Replace "responsible for" with action verbs.',
-    points: !hasEntries || noGeneric ? 4 : 0
+    status: hasEntries && !noGeneric ? 'warn' : hasEntries ? 'pass' : 'warn',
+    message: !hasEntries
+      ? 'Add experience entries to review wording.'
+      : noGeneric
+        ? 'Clean descriptions'
+        : 'Replace "responsible for" with action verbs.',
+    points: hasEntries && noGeneric ? 4 : 0
   });
 
   const total = rules.reduce((s, r) => s + r.points, 0);
@@ -264,14 +316,27 @@ function checkSkills(resume) {
     points: uniqueSkills.size >= 3 ? 4 : uniqueSkills.size > 0 ? 1 : 0
   });
 
-  const hasCategories = skills.some(s => s.category && s.category !== 'Technical');
+  const categoryNames = [...new Set(skills.map(s => (s.category || '').trim()).filter(Boolean))];
+  const realCategories = categoryNames.filter(c => c.toLowerCase() !== 'technical');
+  let catStatus = 'fail';
+  let catPoints = 0;
+  let catMsg = 'Add skills to organize into categories.';
+  if (allItems.length > 0 && realCategories.length > 0) {
+    catStatus = 'pass';
+    catPoints = 3;
+    catMsg = `Categories detected (${realCategories.slice(0, 3).join(', ')})`;
+  } else if (allItems.length > 0) {
+    catStatus = 'warn';
+    catPoints = 1;
+    catMsg = 'Group skills by category (Frontend, Backend, Tools) for better scannability.';
+  }
   rules.push({
     id: 'skills-categorized',
     category: 'skills',
     label: 'Skills organized by category',
-    status: hasCategories ? 'pass' : 'warn',
-    message: hasCategories ? 'Categories detected' : 'Group skills by category (Frontend, Backend, Tools).',
-    points: hasCategories ? 3 : 0
+    status: catStatus,
+    message: catMsg,
+    points: catPoints
   });
 
   const softSkills = ['communication', 'teamwork', 'leadership', 'problem solving', 'time management', 'critical thinking', 'adaptability', 'creativity', 'collaboration', 'work ethic', 'attention to detail', 'interpersonal', 'multitasking', 'organizational'];
@@ -294,14 +359,22 @@ function checkFormatting(resume) {
   let points = 0;
   const max = 15;
 
-  const hasOrder = resume.sectionOrder && resume.sectionOrder.length > 0;
+  const order = resume.sectionOrder || [];
+  const recommendedOrder = ['personalInfo', 'summary', 'experience', 'education', 'skills'];
+  const presentSections = order.filter(s => recommendedOrder.includes(s));
+  const expectedOrder = recommendedOrder.filter(s => presentSections.includes(s));
+  const followsOrder = presentSections.length > 0 && presentSections.every((s, i) => s === expectedOrder[i]);
   rules.push({
     id: 'fmt-section-order',
     category: 'formatting',
-    label: 'Section order defined',
-    status: hasOrder ? 'pass' : 'fail',
-    message: hasOrder ? `${resume.sectionOrder.length} sections ordered` : 'Section order is missing.',
-    points: hasOrder ? 3 : 0
+    label: 'Sections follow recommended order',
+    status: order.length === 0 ? 'fail' : followsOrder ? 'pass' : 'warn',
+    message: order.length === 0
+      ? 'Section order is missing.'
+      : followsOrder
+        ? 'Summary → Experience → Education → Skills'
+        : 'Reorder sections — Summary, then Experience, Education, Skills reads best for recruiters.',
+    points: order.length === 0 ? 0 : followsOrder ? 3 : 1
   });
 
   const hasProjects = resume.projects && resume.projects.some(p => p.name);
@@ -339,13 +412,37 @@ function checkFormatting(resume) {
     points: pts
   });
 
+  const descriptions = (resume.experience || []).filter(e => (e.description || '').trim());
+  const longDescriptions = descriptions.filter(e => e.description.length > 600);
+  rules.push({
+    id: 'fmt-bullet-length',
+    category: 'formatting',
+    label: 'Experience descriptions are scannable',
+    status: descriptions.length === 0 ? 'warn' : longDescriptions.length === 0 ? 'pass' : 'warn',
+    message: descriptions.length === 0
+      ? 'Add experience descriptions to review readability.'
+      : longDescriptions.length === 0
+        ? 'Descriptions are concise'
+        : `${longDescriptions.length} description(s) over 600 characters — break into shorter bullet points.`,
+    points: descriptions.length > 0 && longDescriptions.length === 0 ? 2 : 0
+  });
+
+  const dateValues = collectDates(resume);
+  const knownFamilies = [...new Set(
+    dateValues.map(classifyDate).filter(c => c && c !== 'present' && c !== 'other')
+  )];
+  const mixedDates = knownFamilies.length > 1;
   rules.push({
     id: 'fmt-consistent-dates',
     category: 'formatting',
     label: 'Date format consistency',
-    status: 'pass',
-    message: 'No date inconsistencies detected',
-    points: 3
+    status: dateValues.length === 0 ? 'warn' : mixedDates ? 'warn' : 'pass',
+    message: dateValues.length === 0
+      ? 'Add dates to experience and education.'
+      : mixedDates
+        ? `Mixed date formats detected (${knownFamilies.length} styles) — pick one, e.g. "Jan 2020" or "2020-01".`
+        : 'Dates use a consistent format',
+    points: dateValues.length > 0 && !mixedDates ? 3 : 0
   });
 
   const total = rules.reduce((s, r) => s + r.points, 0);
@@ -361,7 +458,11 @@ function checkATS(resume) {
   const skillItems = hasSkills ? resume.skills.flatMap(s => s.items.split(',').map(i => i.trim().toLowerCase()).filter(Boolean)) : [];
   const expDescriptions = (resume.experience || []).map(e => e.description || '').join(' ').toLowerCase();
 
-  const matched = skillItems.filter(s => expDescriptions.includes(s));
+  const matched = skillItems.filter(s => {
+    if (!s) return false;
+    const escaped = s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i').test(expDescriptions);
+  });
   rules.push({
     id: 'ats-skills-in-exp',
     category: 'ats',
@@ -371,34 +472,64 @@ function checkATS(resume) {
     points: matched.length >= 2 ? 4 : matched.length > 0 ? 1 : 0
   });
 
+  const resumeText = collectResumeText(resume);
+  const hostileGlyph = ATS_HOSTILE_GLYPHS.test(resumeText);
   rules.push({
-    id: 'ats-clean-headers',
+    id: 'ats-clean-content',
     category: 'ats',
-    label: 'Clean headers (no special characters)',
-    status: 'pass',
-    message: 'No problematic header characters detected',
-    points: 3
+    label: 'No emoji or special symbols in content',
+    status: resumeText.length === 0 ? 'warn' : hostileGlyph ? 'fail' : 'pass',
+    message: resumeText.length === 0
+      ? 'Add resume content to scan for ATS-hostile characters.'
+      : hostileGlyph
+        ? 'Emoji or special symbols detected — ATS parsers often drop or garble them.'
+        : 'No problematic characters detected',
+    points: resumeText.length > 0 && !hostileGlyph ? 3 : 0
   });
 
-  const consistentDate = (resume.experience || []).every(e => {
-    if (!e.startDate && !e.endDate) return true;
-    const datePattern = /^\d{4}(?:[-/]\d{1,2})?$/;
-    return (!e.startDate || datePattern.test(e.startDate)) && (!e.endDate || datePattern.test(e.endDate) || e.current);
-  });
+  const classifiedDates = collectDates(resume).map(classifyDate).filter(Boolean);
+  const noDates = classifiedDates.length === 0;
+  const unreadableDates = classifiedDates.filter(c => c === 'other').length;
+  const knownDateFamilies = [...new Set(classifiedDates.filter(c => c !== 'present' && c !== 'other'))];
+  const datesAtsFriendly = !noDates && unreadableDates === 0 && knownDateFamilies.length <= 1;
   rules.push({
     id: 'ats-date-format',
     category: 'ats',
-    label: 'Consistent date format',
-    status: consistentDate ? 'pass' : 'warn',
-    message: consistentDate ? 'Dates look consistent' : 'Use consistent date formats (e.g., YYYY or MM/YYYY).',
-    points: consistentDate ? 3 : 0
+    label: 'Machine-readable date formats',
+    status: datesAtsFriendly ? 'pass' : 'warn',
+    message: noDates
+      ? 'Add dates to experience and education — ATS parsers expect them.'
+      : unreadableDates > 0
+        ? 'Some dates are not machine-readable — use "Jan 2020", "2020-01" or "2020".'
+        : knownDateFamilies.length > 1
+          ? 'Mixed date styles — standardize for ATS parsing.'
+          : 'Dates look consistent',
+    points: datesAtsFriendly ? 3 : 0
   });
 
   const total = rules.reduce((s, r) => s + r.points, 0);
   return { rules, points: total, max };
 }
 
-export function auditResume(resumeData) {
+function checkJobMatch(jdMatch) {
+  const max = 10;
+  const points = Math.round((jdMatch.percentage / 100) * max);
+  const topMissing = jdMatch.missing.slice(0, 5).map(m => m.term);
+  return {
+    rules: [{
+      id: 'jd-keyword-coverage',
+      category: 'jd',
+      label: 'Keyword coverage vs job description',
+      status: jdMatch.percentage >= 70 ? 'pass' : jdMatch.percentage >= 40 ? 'warn' : 'fail',
+      message: `${jdMatch.total} key terms extracted — ${jdMatch.percentage}% found${topMissing.length ? `, missing: ${topMissing.join(', ')}` : ''}.`,
+      points
+    }],
+    points,
+    max
+  };
+}
+
+export function auditResume(resumeData, options = {}) {
   const resume = resumeData || {};
   const categories = [
     { id: 'contact', label: 'Contact & Identity', ...checkContact(resume) },
@@ -409,6 +540,13 @@ export function auditResume(resumeData) {
     { id: 'formatting', label: 'Formatting & Structure', ...checkFormatting(resume) },
     { id: 'ats', label: 'ATS Compatibility', ...checkATS(resume) }
   ];
+
+  const jdText = (options.jobDescription || '').trim();
+  let jdMatch = null;
+  if (jdText) {
+    jdMatch = matchJobDescription(collectResumeText(resume), jdText);
+    categories.push({ id: 'jd', label: 'Job Description Match', ...checkJobMatch(jdMatch) });
+  }
 
   const allRules = categories.flatMap(c => c.rules);
   const totalScore = categories.reduce((s, c) => s + c.points, 0);
@@ -424,5 +562,5 @@ export function auditResume(resumeData) {
       status: r.status
     }));
 
-  return { score: totalScore, maxScore, percentage, categories, issues };
+  return { score: totalScore, maxScore, percentage, categories, issues, jdMatch };
 }

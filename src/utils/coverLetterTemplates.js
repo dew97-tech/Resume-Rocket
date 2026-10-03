@@ -1,12 +1,18 @@
 export const coverLetterTones = [
-  { value: 'professional', label: 'Professional', icon: '💼' },
-  { value: 'confident', label: 'Confident', icon: '💪' },
-  { value: 'enthusiastic', label: 'Enthusiastic', icon: '🔥' },
-  { value: 'friendly', label: 'Friendly', icon: '😊' },
-  { value: 'formal', label: 'Formal', icon: '🎩' },
-  { value: 'bold', label: 'Bold', icon: '⚡' },
-  { value: 'persuasive', label: 'Persuasive', icon: '🎯' },
-  { value: 'minimalist', label: 'Minimalist', icon: '✨' },
+  { value: 'professional', label: 'Professional' },
+  { value: 'confident', label: 'Confident' },
+  { value: 'enthusiastic', label: 'Enthusiastic' },
+  { value: 'friendly', label: 'Friendly' },
+  { value: 'formal', label: 'Formal' },
+  { value: 'bold', label: 'Bold' },
+  { value: 'persuasive', label: 'Persuasive' },
+  { value: 'minimalist', label: 'Minimalist' },
+  { value: 'concise', label: 'Concise' },
+  { value: 'humble', label: 'Humble' },
+  { value: 'visionary', label: 'Visionary' },
+  { value: 'storyteller', label: 'Storyteller' },
+  { value: 'technical', label: 'Technical' },
+  { value: 'passionate', label: 'Passionate' },
 ];
 
 function getToneOpening(tone, jobTitle, company) {
@@ -21,6 +27,12 @@ function getToneOpening(tone, jobTitle, company) {
     bold: `Let me be direct: I am exactly what ${co} needs for the ${title} role. Here's why you should hire me.`,
     persuasive: `Imagine having a ${title} who not only meets every requirement but exceeds expectations from day one. That's what I bring to ${co}.`,
     minimalist: `Re: ${title} position at ${co}.`,
+    concise: `I am applying for the ${title} role at ${co}.`,
+    humble: `I would be grateful for the opportunity to be considered for the ${title} position at ${co}.`,
+    visionary: `The ${title} role at ${co} is exactly the kind of future-facing challenge I want to help build.`,
+    storyteller: `Every career has a turning point — and this ${title} opening at ${co} is mine.`,
+    technical: `I am submitting my application for the ${title} position at ${co}, where my technical depth can deliver measurable results.`,
+    passionate: `Few opportunities excite me as much as the ${title} role at ${co} — this is the work I am built for.`,
   };
   return map[tone] || map.professional;
 }
@@ -36,6 +48,12 @@ function getToneClosing(tone, name) {
     bold: `Let's make it happen.\n\n${n}`,
     persuasive: `The question isn't whether I'm the right fit — it's when we can start.\n\nBest,\n${n}`,
     minimalist: `Best,\n${n}`,
+    concise: `Best,\n${n}`,
+    humble: `Thank you for your time and consideration — I'd be grateful for the chance to learn more.\n\nRespectfully,\n${n}`,
+    visionary: `I'd welcome the chance to discuss the future we could build together.\n\nBest regards,\n${n}`,
+    storyteller: `I'd love to continue this story in a conversation.\n\nWarm regards,\n${n}`,
+    technical: `Happy to walk through the details in a technical conversation.\n\nBest,\n${n}`,
+    passionate: `I'm eager to bring this energy to the team.\n\nBest,\n${n}`,
   };
   return map[tone] || map.professional;
 }
