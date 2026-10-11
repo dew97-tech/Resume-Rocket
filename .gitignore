@@ -1,2 +1,17 @@
+# Dependencies
 node_modules
+
+# Build output
 dist
+
+# Environment variables (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# AI agent / skills / opencode tooling (local dev only)
+.agents/
+.opencode/
+AGENTS.md
+opencode.json
+opencode.jsonc
